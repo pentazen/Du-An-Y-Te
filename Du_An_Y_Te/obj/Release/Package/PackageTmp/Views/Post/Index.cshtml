@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Bài Viết";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @model List<Service.EntityModel.BaiViet>
+}
+@Html.Partial("Partial/_breadcrum")
+<div class="main-textgrids">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12  mb-60">
+                <h1 class="page-header">
+                    Danh Sách Bài Viết
+                </h1>
+            </div>
+        </div>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <div class="row" style="margin-bottom:10px;">
+                <div class="col-md-4">
+                    <a href="@Url.Action("Detail", "Post", new { id = Model[i].id }   )">
+                        <img class="img-responsive" src="@Url.Action("GetFileByURL", "Account", new { URL = Model[i].TapTin.DuongDan }   )" alt="" style="width:400px;height:200px;">
+                    </a>
+                </div>
+                <div class="col-md-8  mb-60" style="overflow-wrap: break-word;">
+                    <h4 ><a href="@Url.Action("Detail", "Post", new { id = Model[i].id }   )" style="color:black;">@Model[i].TenBaiViet</a></h4>
+                    <p>@Model[i].MoTa</p>
+                    <h2 class="t-button">
+                        <a class="btn btn-primary" href="@Url.Action("Detail", "Post", new { id = Model[i].id }   )">Xem <span class="glyphicon glyphicon-chevron-right"></span></a>
+
+                    </h2>
+                </div>
+            </div>
+            <hr />
+        }
+        <nav aria-label="...">
+            <ul class="pagination">
+                @for (int i = 0; i < ViewBag.NumberPage; i++)
+                {
+                    <li class="@if (i == ViewBag.CurrentPage) { <text>active</text> } "><a href="@Url.Action("Index","Post",new { page =i})" >@(i+1) <span class="sr-only"></span></a></li>
+                }
+                @*<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>*@
+            </ul>
+        </nav>
+    </div>
+</div>
+

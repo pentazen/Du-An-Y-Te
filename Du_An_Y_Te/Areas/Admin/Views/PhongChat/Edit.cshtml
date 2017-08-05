@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    @model Du_An_Y_Te.Areas.Admin.Models.PhongChatViewModel.PhongChatEditViewModel
+}
+
+<div class="col-xs-12">
+    <div class="page-title">
+
+        <div class="pull-left">
+            <!-- PAGE HEADING TAG - START --><h1 class="title">Create Chat Room</h1><!-- PAGE HEADING TAG - END -->
+        </div>
+
+        <div class="pull-right hidden-xs">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="@Url.Action("Index","Home")"><i class="fa fa-home"></i>Home</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index","PhongChat")">Chat Room List</a>
+                </li>
+                <li class="active">
+                    <strong>Edit Chat Room</strong>
+                </li>
+            </ol>
+        </div>
+
+    </div>
+</div>
+<div class="clearfix"></div>
+<!-- MAIN CONTENT AREA STARTS -->
+
+<div class="col-xs-12">
+    <section class="box ">
+        <header class="panel_header">
+            <h2 class="title pull-left"></h2>
+            <div class="actions panel_actions pull-right">
+                <a class="box_toggle fa fa-chevron-down"></a>
+                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                <a class="box_close fa fa-times"></a>
+            </div>
+        </header>
+        <div class="content-body">
+            <div class="row">
+                <form class="col-md-8 col-sm-9 col-xs-10" action="@Url.Action("Edit","PhongChat")" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" class="form-control" value="@Model.Phong.id" name="id">
+
+                    <div class="form-group">
+                        <label class="form-label" for="field-1">Name of chat room</label>
+                        <span class="desc"></span>
+                        <div class="controls">
+                            <input type="text" class="form-control" value="@Model.Phong.TenPhong" name="TenPhong">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="field-1">Type of chat room</label>
+                        <span class="desc"></span>
+                        <div class="controls">
+                            <select class="form-control" name="id_LoaiPhongThaoLuan">
+                                @for (int i = 0; i < Model.LoaiPhong.Count; i++)
+                                {
+                                    if (Model.Phong.id_LoaiPhongThaoLuan == @Model.LoaiPhong[i].id)
+                                    {
+                                        <option value="@Model.LoaiPhong[i].id" selected>@Model.LoaiPhong[i].TenLoaiPhong</option>
+
+                                    }
+                                    else
+                                    {
+
+                                        <option value="@Model.LoaiPhong[i].id">@Model.LoaiPhong[i].TenLoaiPhong</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary ">Save</button>
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+    </section>
+</div>

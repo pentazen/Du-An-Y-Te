@@ -1,0 +1,254 @@
+﻿
+@{
+    ViewBag.Title = "Hồ Sơ Của Tôi";
+}
+@model Service.EntityModel.ThanhVien
+@Html.Partial("Partial/_breadcrum")
+<style>
+    .danhsachBenhAn a {
+        color: black;
+    }
+
+        .danhsachBenhAn a:hover {
+            color: blue;
+        }
+</style>
+<div class="container">
+    <h1>Cập Nhật Thông Tin Cá Nhân</h1>
+    <hr>
+    <div class="row">
+        <form class="col-lg-8" role="form" id="hoso" action="@Url.Action("MyProfile", "Account")" method="post" enctype="multipart/form-data">
+            <!-- left column -->
+            <div class="col-md-3">
+                <div class="text-center">
+                    @if (!string.IsNullOrEmpty(Model.Picture))
+                    {
+                        <img src="@Url.Action("GetFileByURL", "Account",new { URL = Model.Picture })" class="avatar img-circle" alt="avatar" style="height:100px;">
+                    }
+                    else
+                    {
+                        <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+                    }
+
+                    <h6>Cập Nhật Ảnh Đại Diện...</h6>
+
+                    <input type="file" id="anhdaidien" name="anhdaidien" class="form-control" accept='image/*'>
+                </div>
+            </div>
+
+            <!-- edit form column -->
+            <div class="col-md-9 personal-info">
+                @*<div class="alert alert-info alert-dismissable">
+                        <a class="panel-close close" data-dismiss="alert">×</a>
+                        <i class="fa fa-coffee"></i>
+                        This is an <strong>.alert</strong>. Use this to show important messages to the user.
+                    </div>*@
+
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Họ :</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" id="ho" name="ho" type="text" value="@Model.Ho">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Tên :</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" id="ten" name="ten" value="@Model.Ten">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Ngày Sinh :</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="date" id="NTNS" name="NTNS" value="@Model.NTNS">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Email:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="email" id="email" name="email" value="@Model.Email" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Chứng Minh Nhân Dân:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" id="CMND" name="CMND" value="@Model.CMND" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Số Điện Thoại:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="tel" id="SoDienThoai" name="SoDienThoai" value="@Model.SoDienThoai" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Địa Chỉ:</label>
+                        <div class="col-lg-8">
+                            <textarea class="form-control" id="diachi" name="diachi" value="" required>@Model.DiaChi</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Chiều Cao:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="number" id="chieucao" name="chieucao" value="@Model.ChieuCao">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Cân Nặng:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="number" id="cannang" name="cannang" value="@Model.CanNang">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Nhóm Máu :</label>
+                        <div class="col-lg-8">
+                            <div class="ui-select">
+                                @{
+                                    Service.NhomMau_Service nhommauser = new Service.NhomMau_Service();
+                                    var dsnhommau = nhommauser.GetAll();
+                                }
+                                <select id="MaNhomMau" name="MaNhomMau" class="form-control">
+                                    @for (int i = 0; i < dsnhommau.Count; i++)
+                                    {
+                                        <option value="@dsnhommau[i].id" @if (@dsnhommau[i].id == Model.MaNhomMau) { <text> selected</text>}>@dsnhommau[i].TenNhomMau</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Username:</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" value="@Model.TaiKhoan" id="taikhoan">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Password:</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="password" value="" id="matkhau" name="matkhau">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"></label>
+                        <div class="col-md-8">
+                            <input type="submit" class="btn btn-primary" value="Cập Nhật">
+                            <span></span>
+                            <a href="/" class="btn btn-default" value="Hủy">Hủy</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+        <div class="col-lg-4">
+            <h1>Danh Sách Bệnh Án Của Tôi</h1>
+            <br />
+            <ul class="danhsachBenhAn list-group">
+                @foreach (var item in Model.BenhAns)
+                {
+                    if (item.TrangThai == true)
+                    {
+
+                        <li class="list-group-item" id="benhan-@item.id"><a href="@Url.Action("MyHealViewToUpdate", "Health",new {id=item.id })"> @item.MauBenhAn.TenMauBenhAn </a><span class="badge">@(DateTime.Parse(item.KetQuaNgay.ToString()).ToString("dd/MM/yyyy")) </span> <span class="badge" style="cursor:pointer;" onclick="XoaBenhAn('benhan-@item.id',@item.id)">Xóa</span></li>
+                    }
+                }
+                @*<li class="list-group-item">New <span class="badge">12</span></li>
+                    <li class="list-group-item">Deleted <span class="badge">5</span></li>
+                    <li class="list-group-item">Warnings <span class="badge">3</span></li>*@
+            </ul>
+        </div>
+    </div>
+    <hr>
+</div>
+
+@section scripts{
+    <script>
+        $("#hoso").submit(function (event) {
+
+            /* stop form from submitting normally */
+            event.preventDefault();
+
+
+            var url = document.location.origin + "/Account/MyProfile";
+            var FormSend = new FormData();
+            var BenhAn = {
+                "Ho": $("#ho").val(), "Ten": $("#ten").val(), "NTNS": $("#NTNS").val(), "Email": $('#email').val(), "CMND": $('#CMND').val(),
+                "SoDienThoai": $('#SoDienThoai').val(), "DiaChi": $("#diachi").val(), "ChieuCao": $("#chieucao").val(), "CanNang": $("#cannang").val(), "MaNhomMau": $("#MaNhomMau").val(),
+                "TaiKhoan": $("#taikhoan").val(), "MatKhau": $("#matkhau").val()
+            }
+            FormSend.append("ModelThanhVien", JSON.stringify(BenhAn));
+            //FormSend.append("dsloai", JSON.stringify(danhsachLoaiXetNghiem));
+            jQuery.each(jQuery('#anhdaidien')[0].files, function (i, file) {
+                FormSend.append('file-' + i, file);
+            });
+            $.ajax({
+                method: "POST",
+                url: url,
+                data: FormSend,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                    return false;
+                }
+            })
+               .done(function (data) {
+                   console.log(data)
+                   if (data == true || data == "True") {
+                       alert("Cập nhật siêu âm thành công!");
+
+
+                   }
+                   else {
+                   }
+
+               });
+        });
+
+
+        function XoaBenhAn(idXoaElement, idBenhAn) {
+            swal({
+                title: 'Bạn Có Chắc Chứ?',
+                text: "Bạn Có Muốn Xóa Bệnh Án!",
+                type: 'warning',
+                showCancelButton: true,
+                //confirmButtonColor: '#3085d6',
+                //cancelButtonColor: '#d33',
+                confirmButtonText: 'Đồng Ý',
+                cancelButtonText: 'Hủy'
+            },
+            function (isConfirm) {
+                var url = document.location.origin + "/api/Health/XoaBenhAnCuaNguoiDung?id_benhAn=" + idBenhAn;
+
+                if (isConfirm) {
+                    $.ajax({
+                        method: "POST",
+                        url: url,
+                        contentType: false,
+                        processData: false,
+                        success: function (data) {
+                        },
+                        error: function (xhr) {
+                            return false;
+                        }
+                    }).done(function (data) {
+                        console.log(data)
+                        if (data == true || data == "True") {
+                            $("#" + idXoaElement).remove();
+                            swal("Thành Công");
+
+
+                        }
+                        else {
+                        }
+
+                    });
+                } else {
+                }
+            });
+        }
+    </script>
+
+}

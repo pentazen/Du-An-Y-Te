@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "Post Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    @model Service.EntityModel.BaiViet
+}
+
+
+
+
+        <div class="col-xs-12">
+            <div class="page-title">
+
+                <div class="pull-left">
+                    <!-- PAGE HEADING TAG - START --><h1 class="title">Post Detail</h1><!-- PAGE HEADING TAG - END -->
+                </div>
+
+                <div class="pull-right hidden-xs">
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="@Url.Action("Index","Home")"><i class="fa fa-home"></i>Home</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index","BaiViet")">Post List </a>
+                        </li>
+                        <li class="active">
+                            <strong>Post Detail</strong>
+                        </li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-xs-12">
+           <div class="pull-right">
+               <a href="@Url.Action("Edit","BaiViet",new {id=Model.id })" class="btn btn-info">Edit</a>
+           </div>
+        </div>
+        <div class="clearfix"></div>
+        <!-- MAIN CONTENT AREA STARTS -->
+        <div class="col-lg-12">
+            <section class="box ">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Preview</h2>
+                    <div class="actions panel_actions pull-right">
+                        <a class="box_toggle fa fa-chevron-down"></a>
+                        <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                        <a class="box_close fa fa-times"></a>
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+
+                            <img src="@Url.Action("GetFileByUrl","TaiKhoan",new {url=Model.TapTin.DuongDan })   " alt="Alternate Text" width="200px;" height="200px;"/>
+                            <br />
+                            <br />
+
+                            <!-- start -->
+
+                            <div class="blog_post full_blog_post">
+                                <h3><a href="">@Model.TenBaiViet</a></h3>
+                                <h5>Written by <a href="#">@Model.ThanhVien.TaiKhoan</a> on @Model.NgayTao.Value.ToShortDateString().</h5>
+
+                                <h3>Description</h3>
+                                <p>@Model.MoTa</p>
+                                <br />
+                                <br />
+
+                                <div class="blog-content">
+
+                                    @Html.Raw(HttpUtility.HtmlDecode(Model.NoiDungBaiViet))
+                                </div>
+
+                            </div>
+
+                            <!-- end -->
+
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+
+
+
+
+
+
+
+
+
+
+        <!-- MAIN CONTENT AREA ENDS -->
+
+
+@section style{
+    <link href="~/Areas/Admin/assets/plugins/ckeditor/contents.css" rel="stylesheet" type="text/css" />}

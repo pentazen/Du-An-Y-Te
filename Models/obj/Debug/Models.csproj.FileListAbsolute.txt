@@ -1,0 +1,10 @@
+D:\DuAnYTe\Final\Du_An_Y_Te\Models\bin\Debug\Models.dll.config
+D:\DuAnYTe\Final\Du_An_Y_Te\Models\bin\Debug\Models.dll
+D:\DuAnYTe\Final\Du_An_Y_Te\Models\bin\Debug\Models.pdb
+D:\DuAnYTe\Final\Du_An_Y_Te\Models\bin\Debug\EntityFramework.dll
+D:\DuAnYTe\Final\Du_An_Y_Te\Models\bin\Debug\EntityFramework.SqlServer.dll
+D:\DuAnYTe\Final\Du_An_Y_Te\Models\bin\Debug\EntityFramework.xml
+D:\DuAnYTe\Final\Du_An_Y_Te\Models\bin\Debug\EntityFramework.SqlServer.xml
+D:\DuAnYTe\Final\Du_An_Y_Te\Models\obj\Debug\Models.csprojResolveAssemblyReference.cache
+D:\DuAnYTe\Final\Du_An_Y_Te\Models\obj\Debug\Models.dll
+D:\DuAnYTe\Final\Du_An_Y_Te\Models\obj\Debug\Models.pdb

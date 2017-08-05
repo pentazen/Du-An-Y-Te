@@ -1,0 +1,26 @@
+﻿
+@model  Service.EntityModel.ThanhVien
+<li class="media" id="thanhvien_chatroom_@Model.id">
+
+    <div class="media-body">
+
+        <div class="media">
+            <a class="pull-left" href="#">
+                @if (!string.IsNullOrEmpty(Model.Picture))
+                {
+                    <img src="@Url.Action("GetFileByURL", "Account",new { URL = Model.Picture })" class="media-object img-circle" style="width:40px; max-height:40px;">
+                }
+                else
+                {
+                    <img src="//placehold.it/100" class="media-object img-circle" style="width:40px; max-height:40px;">
+                }
+            </a>
+            <div class="media-body">
+                <h5>@Model.TaiKhoan | @Model.LoaiThanhVien.TenLoaiThanhVien </h5>
+
+                @*<small class="text-muted">Active From 3 hours</small>*@
+            </div>
+        </div>
+
+    </div>
+</li>

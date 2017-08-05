@@ -1,0 +1,199 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    @model Du_An_Y_Te.Areas.Admin.Models.TaiKhoanCreateViewModel
+}
+
+<section id="main-content" class=" ">
+    <section class="wrapper main-wrapper row" style=''>
+
+        <div class='col-xs-12'>
+            <div class="page-title">
+
+                <div class="pull-left">
+                    <!-- PAGE HEADING TAG - START --><h1 class="title">Create Account</h1><!-- PAGE HEADING TAG - END -->
+                </div>
+
+                <div class="pull-right hidden-xs">
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="@Url.Action("Index","Home")"><i class="fa fa-home"></i>Home</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index","TaiKhoan")">List Account</a>
+                        </li>
+                        <li class="active">
+                            <strong>User Profile</strong>
+                        </li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <!-- MAIN CONTENT AREA STARTS -->
+
+
+        <div class="col-lg-12">
+            <section class="box nobox ">
+                <div class="content-body">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-4 col-xs-12">
+                            <div class="uprofile-image">
+                                <img id="PrevImg"alt="" src="~/Areas/Admin/data/profile/user.png" class="img-responsive">
+                            </div>
+                            <div class="uprofile-name">
+                                <h1>Cập Nhật Ảnh Đại Diện</h1>
+                                <input type="file" name="Picture" id="Picture" accept="image/*"/>
+                            </div>
+                          
+
+                        </div>
+                        <div class="col-md-9 col-sm-8 col-xs-12">
+                            <div class='col-xs-12'>
+                                <div class="page-title">
+
+                                    <div class="pull-left">
+                                        <!-- PAGE HEADING TAG - START --><h1 class="title">Infomation</h1><!-- PAGE HEADING TAG - END -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <!-- MAIN CONTENT AREA STARTS -->
+
+                            <div class="col-xs-12">
+                                <div class="content-body">
+                                    <div class="row">
+                                        @Html.AntiForgeryToken()
+                                        <form id="TaoTaiKhoan" class="col-md-12 col-sm-12 col-xs-12" action="@Url.Action("Create","TaiKhoan","")" method="post">
+                                           
+                                            <div class="form-group">
+                                                <label class="form-label" for="field-4">Account Type</label>
+                                                <span class="desc"></span>
+                                                <div class="controls">
+                                                    <select class="form-control m-bot15" id="id_LoaiThanhVien" name="id_LoaiThanhVien">
+                                                        @for (int i = 0; i < Model.DanhSachLoaiThanhVien.Count; i++)
+                                                        {
+                                                            <option value="@Model.DanhSachLoaiThanhVien[i].id">@Model.DanhSachLoaiThanhVien[i].TenLoaiThanhVien</option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label" for="field-1">First Name</label>
+                                                <span class="desc">Đào</span>
+                                                <div class="controls">
+                                                    <input type="text" class="form-control" id="Ho" name="Ho">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label" for="field-1">Last Name</label>
+                                                <span class="desc">Duy Tùng</span>
+                                                <div class="controls">
+                                                    <input type="text" class="form-control" id="Ten" name="Ten">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label" for="field-2">Account Name</label>
+                                                <span class="desc">duytung</span>
+                                                <div class="controls">
+                                                    <input type="text" value="" class="form-control" id="TaiKhoan" name="TaiKhoan" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label" for="field-2">Password</label>
+                                                <span class="desc"></span>
+                                                <div class="controls">
+                                                    <input type="password" value="" placeholder="******" class="form-control" id="MatKhau" name="MatKhau" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="form-label" for="field-3">Email</label>
+                                                <span class="desc">daoduytung@gmail.com</span>
+                                                <div class="controls">
+                                                    <input type="text" class="form-control" id="Email" name="Email" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label" for="field-3">Identity Card</label>
+                                                <span class="desc"> 035156895</span>
+                                                <div class="controls">
+                                                    <input type="text" class="form-control" id="CMND" name="CMND">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label" for="field-4">Phone Number</label>
+                                                <span class="desc">0903801299</span>
+                                                <div class="controls">
+                                                    <input type="text" id="SoDienThoai" name="SoDienThoai" placeholder="Enter your desired text" class="form-control" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label" for="field-5">Address</label>
+                                                <span class="desc"> Number 11, Ho Chi Minh City</span>
+                                                <div class="controls">
+                                                    <textarea class="form-control" cols="5" id="DiaChi" name="DiaChi"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label" for="field-4">Height</label>
+                                                <span class="desc"> 160</span>
+                                                <div class="input-group primary">
+                                                    <input type="number" step="any" min="0" id="ChieuCao" name="ChieuCao" placeholder="Your Height" class="form-control">
+                                                    <span class="input-group-addon">Cm</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label" for="field-4">Weight</label>
+                                                <span class="desc"> 60</span>
+                                                <div class="input-group primary">
+                                                    <input type="number" step="any" min="0" id="CanNang" name="CanNang" placeholder="Your Weight" class="form-control">
+                                                    <span class="input-group-addon">Kg</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label" for="field-4">Blood Group</label>
+                                                <span class="desc"></span>
+                                                <div class="controls">
+                                                    <select class="form-control m-bot15" id="MaNhomMau" name="MaNhomMau">
+                                                        @for (int i = 0; i < Model.DanhSachNhomMau.Count; i++)
+                                                        {
+                                                            <option value="@Model.DanhSachNhomMau[i].id">@Model.DanhSachNhomMau[i].TenNhomMau</option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary btn-lg ">Create</button>
+                                                <button type="reset" class="btn btn-default  btn-lg">Reset</button>
+                                            </div>
+
+                                        </form>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+
+
+                            
+
+                            
+
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <!-- MAIN CONTENT AREA ENDS -->
+    </section>
+</section>
+@section script{
+    <script src="~/Areas/Admin/assets/jsForView/TaiKhoan/TaoTaiKhoan.js" type="text/javascript"></script>
+    }

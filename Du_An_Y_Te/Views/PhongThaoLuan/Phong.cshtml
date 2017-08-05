@@ -1,0 +1,125 @@
+﻿@model Service.EntityModel.PhongThaoLuan
+@using Service.EntityModel;
+@{
+    ViewBag.Title = "Phòng " + Model.TenPhong;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+@Html.Partial("Partial/_breadcrum")
+
+<style>
+    .panel-body {
+        float: left;
+        height: 500px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        width: 100%;
+    }
+</style>
+
+@if (Session["ThanhVien"] != null)
+{
+    <input type="hidden" id="id_ThanhVien" value="@((Session["ThanhVien"] as ThanhVien).id)" />
+}
+<input type="hidden" id="id_Phong" value="@Model.id" />
+<div class="main-textgrids">
+    <div class="container">
+        <h1>@Model.TenPhong</h1>
+        <div class="row " style="padding-top:40px;">
+            <h3 class="text-center">Nơi thảo luận </h3>
+            <br /><br />
+            <div class="col-md-8">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        Nội dung
+                    </div>
+                    <div class="panel-body">
+                        <ul class="media-list" id="danhsachChat">
+
+                            <li class="media">
+
+                                <div class="media-body">
+
+                                    <div class="media">
+                                        <a class="pull-left" href="#">
+                                            <img class="media-object img-circle " src="~/images/t1.jpg" style="width:64px;" />
+                                        </a>
+                                        <div class="media-body">
+                                            Donec sit amet ligula enim. Duis vel condimentum massa.
+
+                                            Donec sit amet ligula enim. Duis vel condimentum massa.Donec sit amet ligula enim.
+                                            Duis vel condimentum massa.
+                                            Donec sit amet ligula enim. Duis vel condimentum massa.
+                                            <br />
+                                            <small class="text-muted">Alex Deo | 23rd June at 5:00pm</small>
+                                            <hr />
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="input-group">
+                            @*@if (Session["ThanhVien"] != null)
+                            {
+                                <input type="text" class="form-control" placeholder="Viết câu hỏi của bạn để mọi người cũng như để bác sĩ tư vấn" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-info" type="button">Gửi</button>
+                                </span>
+                            }
+                            else
+                            {
+                                <h1 class="panel-title">Vui lòng đăng nhập để có thể thảo luận</h1>
+                            }*@
+                            <input type="text" class="form-control" id="txtMessage" placeholder="Viết câu hỏi của bạn để mọi người cũng như để bác sĩ tư vấn" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-info" type="button" id="btnSendMsg">Gửi</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        Thành viên tham gia phòng
+                    </div>
+                    <div class="panel-body">
+                        <ul class="media-list" id="danhSachNguoiDungOnline">
+
+                            <li class="media">
+
+                                <div class="media-body">
+
+                                    <div class="media">
+                                        <a class="pull-left" href="#">
+                                            <img class="media-object img-circle" src="~/images/t1.jpg" style="width:40px; max-height:40px;" />
+                                        </a>
+                                        <div class="media-body">
+                                            <h5>Alex Deo | User </h5>
+
+                                            <small class="text-muted">Active From 3 hours</small>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+<script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
+
+
+    <script src="@Url.Content("~/signalr/hubs")" type="text/javascript"></script>
+<script src="@Url.Content("~/signalr/hubs")" type="text/javascript"></script>
+<script src="~/Scripts/Controller/ChatRoom.js"></script>
+    }

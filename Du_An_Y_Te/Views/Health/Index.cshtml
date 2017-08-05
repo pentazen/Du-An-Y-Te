@@ -1,0 +1,344 @@
+﻿
+@{
+    ViewBag.Title = "Tạo Hồ Sơ Sức Khỏe Của Riêng Bạn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model List<Service.EntityModel.MauBenhAn>
+@Html.Partial("Partial/_breadcrum")
+<style>
+    #sticker, #sticker1 {
+        height: 150px;
+        background-color: red;
+        padding: 10px;
+        width: 282px;
+    }
+
+    .two-option input {
+        width: auto;
+        display: inline-block;
+    }
+
+    .two-option select {
+        width: auto;
+        display: inline-block;
+    }
+</style>
+
+
+
+
+
+
+<div class="container-fluid">
+
+
+    <div class="row">
+        <div class="col-lg-2">
+            @*<div id="sticker1">
+                    <p>This is the sticky thingy that is really cool.</p>
+                </div>*@
+        </div>
+
+
+        <div class="col-lg-8">
+            <div class="col-lg-12" style="padding:15px;">
+
+                <ul class="nav nav-tabs">
+                    @{
+                        for (int i = 0; i < Model.Count; i++)
+                        {
+                            <li @if (i == 0)
+                            { <text> class="active" </text> }>
+                            <a data-toggle="tab" href="#tab-@Model[i].TenKhongDau">@Model[i].TenMauBenhAn</a></li>
+                        }
+                    }
+
+
+
+                </ul>
+
+                <div class="tab-content" id="CapNhatThongTinSucKhoe">
+                    @{
+                        for (int i = 0; i < Model.Count; i++)
+                        {
+                            <div id="tab-@Model[i].TenKhongDau" class="tab-pane fade @if (i == 0) { <text>active in</text>} ">
+                                <form class="row" id="@Model[i].TenKhongDau" data-idMauBenhAn="@Model[i].id">
+                                    @if (Model[i].MauBenhAn_LoaiXetNghiem.Count > 0)
+                                    {
+                                        Model[i].MauBenhAn_LoaiXetNghiem = Model[i].MauBenhAn_LoaiXetNghiem.OrderBy(loaiXN => loaiXN.ThuTu).ToList();
+                                        <div class="col-lg-6">
+                                            <div class="form-horizontal">
+                                                @for (int j = 0; j < Model[i].MauBenhAn_LoaiXetNghiem.Count / 2; j++)
+                                                {
+                                                    <div class="form-group">
+                                                        <label class="control-label col-sm-5">@Model[i].MauBenhAn_LoaiXetNghiem.ToList()[j].LoaiXetNghiem.TenHienThi</label>
+                                                        <div class="col-sm-7">
+                                                            @if (!string.IsNullOrEmpty(Model[i].MauBenhAn_LoaiXetNghiem.ToList()[j].LoaiXetNghiem.DonVi) && Model[i].MauBenhAn_LoaiXetNghiem.ToList()[j].LoaiXetNghiem.DonVi.Split(',').Count() > 0)
+                                                            {
+                                                                <input data-idLoaiXetNghiem="@Model[i].MauBenhAn_LoaiXetNghiem.ToList()[j].LoaiXetNghiem.id" type="number" step="any" class="form-control" id="@(Model[i].TenKhongDau+"_"+Model[i].MauBenhAn_LoaiXetNghiem.ToList()[j].LoaiXetNghiem.id.ToString())" name="@(Model[i].TenKhongDau+"_"+Model[i].MauBenhAn_LoaiXetNghiem.ToList()[j].LoaiXetNghiem.id.ToString())" placeholder="VD : 0.96" style="width:auto;display:inline-block;">
+                                                                <select class="form-control" id="@(Model[i].TenKhongDau+"_"+Model[i].MauBenhAn_LoaiXetNghiem.ToList()[j].LoaiXetNghiem.id.ToString())_DonVi" style="width:auto;display:inline-block;">
+                                                                    @for (int z = 0; z < Model[i].MauBenhAn_LoaiXetNghiem.ToList()[j].LoaiXetNghiem.DonVi.Split(',').Count(); z++)
+                                                                    {
+                                                                        <option value="@Model[i].MauBenhAn_LoaiXetNghiem.ToList()[j].LoaiXetNghiem.DonVi.Split(',')[z]">@Model[i].MauBenhAn_LoaiXetNghiem.ToList()[j].LoaiXetNghiem.DonVi.Split(',')[z]</option>
+                                                                    }
+
+                                                                </select>
+                                                            }
+                                                            else
+                                                            {
+                                                                <input data-idLoaiXetNghiem="@Model[i].MauBenhAn_LoaiXetNghiem.ToList()[j].LoaiXetNghiem.id" type="text" class="form-control" id="@(Model[i].TenKhongDau+"_"+Model[i].MauBenhAn_LoaiXetNghiem.ToList()[j].LoaiXetNghiem.id.ToString())" name="@(Model[i].TenKhongDau+"_"+Model[i].MauBenhAn_LoaiXetNghiem.ToList()[j].LoaiXetNghiem.id.ToString())">
+                                                            }
+
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-horizontal">
+                                                @for (int j = Model[i].MauBenhAn_LoaiXetNghiem.Count / 2; j < Model[i].MauBenhAn_LoaiXetNghiem.Count; j++)
+                                                {
+                                                    <div class="form-group">
+                                                        <label class="control-label col-sm-5">@Model[i].MauBenhAn_LoaiXetNghiem.ToList()[j].LoaiXetNghiem.TenHienThi</label>
+                                                        <div class="col-sm-7">
+                                                            @if (!string.IsNullOrEmpty(Model[i].MauBenhAn_LoaiXetNghiem.ToList()[j].LoaiXetNghiem.DonVi) && Model[i].MauBenhAn_LoaiXetNghiem.ToList()[j].LoaiXetNghiem.DonVi.Split(',').Count() > 0)
+                                                            {
+                                                                <input data-idLoaiXetNghiem="@Model[i].MauBenhAn_LoaiXetNghiem.ToList()[j].LoaiXetNghiem.id" type="number" step="any" class="form-control" id="@(Model[i].TenKhongDau+"_"+Model[i].MauBenhAn_LoaiXetNghiem.ToList()[j].LoaiXetNghiem.id.ToString())" name="@(Model[i].TenKhongDau+"_"+Model[i].MauBenhAn_LoaiXetNghiem.ToList()[j].LoaiXetNghiem.id.ToString())" placeholder="VD : 0.96" style="width:auto;display:inline-block;">
+                                                                <select class="form-control" id="@(Model[i].TenKhongDau+"_"+Model[i].MauBenhAn_LoaiXetNghiem.ToList()[j].LoaiXetNghiem.id.ToString())_DonVi" style="width:auto;display:inline-block;">
+                                                                    @for (int z = 0; z < Model[i].MauBenhAn_LoaiXetNghiem.ToList()[j].LoaiXetNghiem.DonVi.Split(',').Count(); z++)
+                                                                    {
+                                                                        <option value="@Model[i].MauBenhAn_LoaiXetNghiem.ToList()[j].LoaiXetNghiem.DonVi.Split(',')[z]">@Model[i].MauBenhAn_LoaiXetNghiem.ToList()[j].LoaiXetNghiem.DonVi.Split(',')[z]</option>
+                                                                    }
+
+                                                                </select>
+                                                            }
+                                                            else
+                                                            {
+                                                                <input data-idLoaiXetNghiem="@Model[i].MauBenhAn_LoaiXetNghiem.ToList()[j].LoaiXetNghiem.id" type="text" class="form-control" id="@(Model[i].TenKhongDau+"_"+Model[i].MauBenhAn_LoaiXetNghiem.ToList()[j].LoaiXetNghiem.id.ToString())" name="@(Model[i].TenKhongDau+"_"+Model[i].MauBenhAn_LoaiXetNghiem.ToList()[j].LoaiXetNghiem.id.ToString())">
+                                                            }
+
+                                                        </div>
+                                                    </div>
+                                                }
+
+
+                                            </div>
+                                        </div>
+                                    }
+
+                                    <div class="col-lg-12">
+                                        <div class="form-horizontal">
+                                            <div class="form-group">
+                                                <label for="text_id" class="control-label col-sm-2">File Đính Kèm</label>
+                                                <div class="col-sm-10">
+                                                    <input type="file" class="form-control" id="@(Model[i].TenKhongDau+"_File")" name="@(Model[i].TenKhongDau+"_File")" multiple>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="text_id" class="control-label col-sm-2">Kết quả</label>
+                                                <div class="col-sm-10">
+                                                    <textarea class="form-control" rows="5" id="@(Model[i].TenKhongDau+"_KetQua")" placeholder="Bất cứ thông tin nào không có trong các trường dữ liệu xin hãy liệt kê ở đây một cách chi tiết"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="text_id" class="control-label col-sm-2">Ghi Chú</label>
+                                                <div class="col-sm-10">
+                                                    <textarea class="form-control" rows="5" id="@(Model[i].TenKhongDau+"_GhiChu")" placeholder="Bất cứ điều gì trong suốt quá trình xét nghiệm mà bạn thắc mắc hoặc không hài lòng"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="text_id" class="control-label col-sm-2">Kết Quả Ngày</label>
+                                                <div class="col-sm-10">
+                                                    <input type="date" class="form-control" id="@(Model[i].TenKhongDau+"_KetQuaNgay")" name="HuyetHoc_KetQuaNgay" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="text_id" class="control-label col-sm-2"></label>
+                                                <div class="col-sm-10">
+                                                    <button type="submit" class="btn btn-primary">Cập nhật</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        }
+                    }
+
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="col-lg-2">
+            @*<div id="sticker">
+                    <p>This is the sticky thingy that is really cool.</p>
+                </div>*@
+
+        </div>
+    </div>
+
+
+</div>
+
+
+
+<script>
+    var check1 = false;
+    var check2 = false;
+    var check3 = false;
+    var check4 = false;
+    function CheckFile(name) {
+        var fileUpload = $("#" + name);
+        //if (parseInt(fileUpload.get(0).files.length) > 2) {
+        //    sweetAlert("Nhắc nhở", "Chỉ được đính kèm 2 File", "warning");
+        //    return false;
+        //}
+        if (typeof FileReader !== "undefined") {
+            var size = 0;
+            var fileInput = fileUpload.get(0).files;
+            if (typeof fileInput[0] !== "undefined") {
+                console.log(fileInput[0])
+                for (var i = 0; i < fileInput.length; i++) {
+                    size += fileInput[0].size;
+                }
+            }
+            // check file size
+            if (size !== 0) {
+                if ((size / 1024 / 1024) > 5) {
+                    console.log(size)
+                    sweetAlert("Nhắc nhở", "Tổng độ lớn của các File không được lớn hơn 5MB", "warning");
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+    @for (int i = 0; i < Model.Count; i++)
+            {
+               <text>
+
+    $("#@Model[i].TenKhongDau").submit(function (event) {
+
+        /* stop form from submitting normally */
+        event.preventDefault();
+        if (!CheckFile("@(Model[i].TenKhongDau+"_File")")) {
+            return;
+        }
+        CapNhat@(Model[i].TenKhongDau)();
+    });
+    </text>
+        }
+    @for (int i = 0; i < Model.Count; i++)
+     {
+        <text>
+    function CapNhat@(Model[i].TenKhongDau)() {
+        var url = document.location.origin + "/Health/CapNhatBenhAn";
+        var FormSend = new FormData();
+        var listInput = $("#@(Model[i].TenKhongDau) input[type=text],#@(Model[i].TenKhongDau) input[type=number]");
+        let danhsachLoaiXetNghiem = [];
+
+        for (var i = 0; i < listInput.length; i++) {
+            let loaiXetNghiem = {};
+            loaiXetNghiem.GiaTri = listInput[i].value;
+            loaiXetNghiem.DonVi = $("#" + listInput[i].id + "_DonVi").val() ? $("#" + listInput[i].id + "_DonVi").val() : "";
+            loaiXetNghiem.id_LoaiXetNghiem = $(listInput[i]).data().idloaixetnghiem;
+            danhsachLoaiXetNghiem.push(loaiXetNghiem);
+        }
+
+        var BenhAn = {
+            "id_MauBenhAn": $("#@(Model[i].TenKhongDau)").data().idmaubenhan,
+            "NoiKham": "",
+            "BacSiKham": "",
+            "KetQua": $('#@(Model[i].TenKhongDau)_KetQua').val(),
+            "GhiChu": $('#@(Model[i].TenKhongDau)_GhiChu').val(),
+            "KetQuaNgay": $('#@(Model[i].TenKhongDau)_KetQuaNgay').val()
+        }
+
+        FormSend.append("ModelbenhAn", JSON.stringify(BenhAn));
+        FormSend.append("dsloai", JSON.stringify(danhsachLoaiXetNghiem));
+
+
+
+        jQuery.each(jQuery('#@(Model[i].TenKhongDau)_File')[0].files, function (i, file) {
+            FormSend.append('file-' + i, file);
+        });
+
+
+
+
+        FormSend.append("@(Model[i].TenKhongDau)_KetQuaNgay", $('#@(Model[i].TenKhongDau)_KetQuaNgay').val());
+        $.ajax({
+            method: "POST",
+            url: url,
+            data: FormSend,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+            },
+            error: function (xhr) {
+                console.log(xhr);
+                return false;
+            }
+        })
+           .done(function (data) {
+               if (typeof data != "object") {
+                   if (data == true || data == "True") {
+
+                       swal({
+                           title: "Thành Công",
+                           text: "Cập nhật @(Model[i].TenMauBenhAn) thành công!",
+                           type: "success",
+                           showCancelButton: false,
+                           closeOnConfirm: true,
+                       }, function () {
+                           $('#@(Model[i].TenKhongDau)')[0].reset();
+                       })
+
+                   }
+                   else {
+                       return swal("Cập nhật thất bại!", "", "error");
+                   }
+               }
+               else {
+                   if (data.KetQua == true || data.KetQua == "True") {
+
+                       swal({
+                           title: "Cập nhật @(Model[i].TenMauBenhAn) thành công!",
+                           text: data.NoiDung,
+                           type: "success",
+                           showCancelButton: false,
+                           closeOnConfirm: true,
+                       }, function () {
+                           $('#@(Model[i].TenKhongDau)')[0].reset();
+                       })
+
+                   }
+                   else {
+                       return swal("Cập nhật thất bại!", "", "error");
+                   }
+
+               }
+
+           });
+    }
+
+    </text>
+     }
+</script>
+
+
+@section scripts{
+    <script type="text/javascript" src="~/js/jquery.sticky.js"></script>
+    <script>
+        $(window).load(function () {
+            $("#sticker").sticky({ topSpacing: 10 });
+            $("#sticker1").sticky({ topSpacing: 10 });
+        });
+    </script>
+}

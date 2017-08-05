@@ -1,0 +1,396 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DuAnYTeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="HuyetHoc">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_ThanhVien" Type="int" Nullable="false" />
+    <Property Name="BachCau" Type="float" />
+    <Property Name="HongCau" Type="float" />
+    <Property Name="HuyetSacTo" Type="float" />
+    <Property Name="DungTichHongCau" Type="float" />
+    <Property Name="TheTichTrungBinhCuaMotHongCau" Type="float" />
+    <Property Name="SoLuongHuyetSacToTrungBinhTrongMotHongCau" Type="float" />
+    <Property Name="NongDoTrungBinhHuyetSacToTrongMotHongCau" Type="float" />
+    <Property Name="RDW_SD" Type="float" />
+    <Property Name="RDW_CV" Type="float" />
+    <Property Name="DaNhanTrungTin_PhanTram" Type="float" />
+    <Property Name="DaNhanTrungTin_MM3" Type="float" />
+    <Property Name="DaNhanAiToan_PhanTram" Type="float" />
+    <Property Name="DaNhanAiToan_MM3" Type="float" />
+    <Property Name="DaNhanAiKiem_PhanTram" Type="float" />
+    <Property Name="DaNhanAiKiem_MM3" Type="float" />
+    <Property Name="BachCauLympho_PhanTram" Type="float" />
+    <Property Name="BachCauLympho_MM3" Type="float" />
+    <Property Name="DonNhan_PhanTram" Type="float" />
+    <Property Name="DonNhan_MM3" Type="float" />
+    <Property Name="TieuCau" Type="float" />
+    <Property Name="ALPHA_FOETOPROTEINE" Type="float" />
+    <Property Name="TheTichTrungBinhTieuCauTrongMotTheTichMau" Type="float" />
+    <Property Name="DaiPhanBoKichThuocTieuCau" Type="float" />
+    <Property Name="TyLeProthrombin" Type="float" />
+    <Property Name="ThoiGianThromboplastinTungPhan" Type="float" />
+    <Property Name="Fibrinogen" Type="float" />
+    <Property Name="KetQua" Type="text" />
+    <Property Name="GhiChu" Type="text" />
+    <Property Name="KetQuaNgay" Type="datetime" />
+    <Property Name="NgayTao" Type="datetime" />
+  </EntityType>
+  <EntityType Name="HuyetHoc_TapTin">
+    <Key>
+      <PropertyRef Name="id_HuyetHoc" />
+      <PropertyRef Name="id_TapTin" />
+    </Key>
+    <Property Name="id_HuyetHoc" Type="int" Nullable="false" />
+    <Property Name="id_TapTin" Type="int" Nullable="false" />
+    <Property Name="NgayTao" Type="datetime" />
+    <Property Name="TrangThai" Type="bit" />
+  </EntityType>
+  <EntityType Name="NuocTieu">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_ThanhVien" Type="int" Nullable="false" />
+    <Property Name="Duong" Type="nvarchar" MaxLength="100" />
+    <Property Name="SacToMauDaCam" Type="nvarchar" MaxLength="100" />
+    <Property Name="Ketone" Type="nvarchar" MaxLength="100" />
+    <Property Name="TyTrong" Type="nvarchar" MaxLength="100" />
+    <Property Name="Mau" Type="nvarchar" MaxLength="100" />
+    <Property Name="pH" Type="nvarchar" MaxLength="100" />
+    <Property Name="Dam" Type="nvarchar" MaxLength="100" />
+    <Property Name="Urobilinogen" Type="nvarchar" MaxLength="100" />
+    <Property Name="Nitrites" Type="nvarchar" MaxLength="100" />
+    <Property Name="TeBaoHongCau" Type="nvarchar" MaxLength="100" />
+    <Property Name="BachCau" Type="nvarchar" MaxLength="100" />
+    <Property Name="Ag_HBs" Type="nvarchar" MaxLength="100" />
+    <Property Name="Anti_HCV" Type="nvarchar" MaxLength="100" />
+    <Property Name="TrongLuongRieng" Type="nvarchar" MaxLength="100" />
+    <Property Name="SoiCanNuocTieu" Type="nvarchar" MaxLength="100" />
+    <Property Name="KetQua" Type="text" />
+    <Property Name="GhiChu" Type="text" />
+    <Property Name="KetQuaNgay" Type="datetime" />
+    <Property Name="NgayTao" Type="datetime" />
+  </EntityType>
+  <EntityType Name="NuocTieu_TapTin">
+    <Key>
+      <PropertyRef Name="id_NuocTieu" />
+      <PropertyRef Name="id_TapTin" />
+    </Key>
+    <Property Name="id_NuocTieu" Type="int" Nullable="false" />
+    <Property Name="id_TapTin" Type="int" Nullable="false" />
+    <Property Name="NgayTao" Type="datetime" />
+    <Property Name="TrangThai" Type="bit" />
+  </EntityType>
+  <EntityType Name="SieuAm">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="id_ThanhVien" Type="int" Nullable="false" />
+    <Property Name="VungSieuAm" Type="nvarchar" MaxLength="100" />
+    <Property Name="Gan" Type="nvarchar" MaxLength="100" />
+    <Property Name="TuiMat" Type="nvarchar" MaxLength="100" />
+    <Property Name="DuongMat" Type="nvarchar" MaxLength="100" />
+    <Property Name="Tuy" Type="nvarchar" MaxLength="100" />
+    <Property Name="Lach" Type="nvarchar" MaxLength="100" />
+    <Property Name="ThanPhai" Type="nvarchar" MaxLength="100" />
+    <Property Name="ThanTrai" Type="nvarchar" MaxLength="100" />
+    <Property Name="BangQuang" Type="nvarchar" MaxLength="100" />
+    <Property Name="TienLietTuyen" Type="nvarchar" MaxLength="100" />
+    <Property Name="XoangBung" Type="nvarchar" MaxLength="100" />
+    <Property Name="DichOBung" Type="nvarchar" MaxLength="100" />
+    <Property Name="DongMachChuBung" Type="nvarchar" MaxLength="100" />
+    <Property Name="HinhDang" Type="nvarchar" MaxLength="100" />
+    <Property Name="CauTrucSieuAm" Type="nvarchar" MaxLength="100" />
+    <Property Name="TonThuong" Type="nvarchar" MaxLength="100" />
+    <Property Name="HachDuoiHam" Type="nvarchar" MaxLength="100" />
+    <Property Name="TuyenBot" Type="nvarchar" MaxLength="100" />
+    <Property Name="CacBoPhanKhac" Type="nvarchar" MaxLength="100" />
+    <Property Name="KetQua" Type="text" />
+    <Property Name="GhiChu" Type="text" />
+    <Property Name="KetQuaNgay" Type="datetime" />
+    <Property Name="NgayTao" Type="datetime" />
+  </EntityType>
+  <EntityType Name="SieuAm_TapTin">
+    <Key>
+      <PropertyRef Name="id_SieuAm" />
+      <PropertyRef Name="id_TapTin" />
+    </Key>
+    <Property Name="id_SieuAm" Type="int" Nullable="false" />
+    <Property Name="id_TapTin" Type="int" Nullable="false" />
+    <Property Name="NgayTao" Type="datetime" />
+    <Property Name="TrangThai" Type="bit" />
+  </EntityType>
+  <EntityType Name="SinhHoaMau">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_ThanhVien" Type="int" Nullable="false" />
+    <Property Name="DuongHuyetLucDoi" Type="float" />
+    <Property Name="DuongHuyetSauKhiAn" Type="float" />
+    <Property Name="Cholesterol" Type="float" />
+    <Property Name="Cholesterol_HDL" Type="float" />
+    <Property Name="Triglycerides" Type="float" />
+    <Property Name="TinhTrangHuyetThanh" Type="float" />
+    <Property Name="Cholesterol_LDL" Type="float" />
+    <Property Name="Urea" Type="float" />
+    <Property Name="Creatinine" Type="float" />
+    <Property Name="ACIT_URIC" Type="float" />
+    <Property Name="ALAT" Type="float" />
+    <Property Name="ASAT" Type="float" />
+    <Property Name="KetQua" Type="text" />
+    <Property Name="GhiChu" Type="text" />
+    <Property Name="KetQuaNgay" Type="datetime" />
+    <Property Name="NgayTao" Type="datetime" />
+  </EntityType>
+  <EntityType Name="SinhHoaMau_TapTin">
+    <Key>
+      <PropertyRef Name="id_SinhHoaMau" />
+      <PropertyRef Name="id_TapTin" />
+    </Key>
+    <Property Name="id_SinhHoaMau" Type="int" Nullable="false" />
+    <Property Name="id_TapTin" Type="int" Nullable="false" />
+    <Property Name="NgayTao" Type="datetime" />
+    <Property Name="TrangThai" Type="bit" />
+  </EntityType>
+  <EntityType Name="TapTin">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenTapTin" Type="nvarchar" MaxLength="100" />
+    <Property Name="LoaiTapTin" Type="nvarchar" MaxLength="100" />
+    <Property Name="DuongDan" Type="text" Nullable="false" />
+    <Property Name="NgayTao" Type="datetime" />
+    <Property Name="KichThuoc" Type="float" />
+  </EntityType>
+  <EntityType Name="ThanhVien">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TaiKhoan" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="MatKhau" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Ho" Type="nvarchar" MaxLength="100" />
+    <Property Name="Ten" Type="nvarchar" MaxLength="100" />
+    <Property Name="TenDayDu" Type="nvarchar" MaxLength="100" />
+    <Property Name="NTNS" Type="date" />
+    <Property Name="CMND" Type="int" />
+    <Property Name="SoDienThoai" Type="int" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="DiaChi" Type="text" />
+    <Property Name="Picture" Type="text" />
+    <Property Name="TrangThai" Type="bit" />
+    <Property Name="LanCuoiDangNhap" Type="datetime" />
+    <Property Name="LanCuoiDangXuat" Type="datetime" />
+    <Property Name="NgayTao" Type="datetime" />
+    <Property Name="NgaySua" Type="datetime" />
+  </EntityType>
+  <Association Name="FK_HuyetHoc_TapTin_HuyetHoc">
+    <End Role="HuyetHoc" Type="Self.HuyetHoc" Multiplicity="1" />
+    <End Role="HuyetHoc_TapTin" Type="Self.HuyetHoc_TapTin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HuyetHoc">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="HuyetHoc_TapTin">
+        <PropertyRef Name="id_HuyetHoc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HuyetHoc_TapTin_TapTin">
+    <End Role="TapTin" Type="Self.TapTin" Multiplicity="1" />
+    <End Role="HuyetHoc_TapTin" Type="Self.HuyetHoc_TapTin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TapTin">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="HuyetHoc_TapTin">
+        <PropertyRef Name="id_TapTin" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HuyetHoc_ThanhVien">
+    <End Role="ThanhVien" Type="Self.ThanhVien" Multiplicity="1" />
+    <End Role="HuyetHoc" Type="Self.HuyetHoc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ThanhVien">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="HuyetHoc">
+        <PropertyRef Name="id_ThanhVien" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NuocTieu_TapTin_NuocTieu">
+    <End Role="NuocTieu" Type="Self.NuocTieu" Multiplicity="1" />
+    <End Role="NuocTieu_TapTin" Type="Self.NuocTieu_TapTin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NuocTieu">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="NuocTieu_TapTin">
+        <PropertyRef Name="id_NuocTieu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NuocTieu_TapTin_TapTin">
+    <End Role="TapTin" Type="Self.TapTin" Multiplicity="1" />
+    <End Role="NuocTieu_TapTin" Type="Self.NuocTieu_TapTin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TapTin">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="NuocTieu_TapTin">
+        <PropertyRef Name="id_TapTin" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NuocTieu_ThanhVien">
+    <End Role="ThanhVien" Type="Self.ThanhVien" Multiplicity="1" />
+    <End Role="NuocTieu" Type="Self.NuocTieu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ThanhVien">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="NuocTieu">
+        <PropertyRef Name="id_ThanhVien" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SieuAm_TapTin_SieuAm">
+    <End Role="SieuAm" Type="Self.SieuAm" Multiplicity="1" />
+    <End Role="SieuAm_TapTin" Type="Self.SieuAm_TapTin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SieuAm">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="SieuAm_TapTin">
+        <PropertyRef Name="id_SieuAm" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SieuAm_TapTin_TapTin">
+    <End Role="TapTin" Type="Self.TapTin" Multiplicity="1" />
+    <End Role="SieuAm_TapTin" Type="Self.SieuAm_TapTin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TapTin">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="SieuAm_TapTin">
+        <PropertyRef Name="id_TapTin" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SieuAm_ThanhVien">
+    <End Role="ThanhVien" Type="Self.ThanhVien" Multiplicity="1" />
+    <End Role="SieuAm" Type="Self.SieuAm" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ThanhVien">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="SieuAm">
+        <PropertyRef Name="id_ThanhVien" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SinhHoaMau_TapTin_SieuAm">
+    <End Role="SinhHoaMau" Type="Self.SinhHoaMau" Multiplicity="1" />
+    <End Role="SinhHoaMau_TapTin" Type="Self.SinhHoaMau_TapTin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SinhHoaMau">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="SinhHoaMau_TapTin">
+        <PropertyRef Name="id_SinhHoaMau" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SinhHoaMau_TapTin_TapTin">
+    <End Role="TapTin" Type="Self.TapTin" Multiplicity="1" />
+    <End Role="SinhHoaMau_TapTin" Type="Self.SinhHoaMau_TapTin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TapTin">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="SinhHoaMau_TapTin">
+        <PropertyRef Name="id_TapTin" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SinhHoaMau_ThanhVien">
+    <End Role="ThanhVien" Type="Self.ThanhVien" Multiplicity="1" />
+    <End Role="SinhHoaMau" Type="Self.SinhHoaMau" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ThanhVien">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="SinhHoaMau">
+        <PropertyRef Name="id_ThanhVien" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DuAnYTeModelStoreContainer">
+    <EntitySet Name="HuyetHoc" EntityType="Self.HuyetHoc" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HuyetHoc_TapTin" EntityType="Self.HuyetHoc_TapTin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NuocTieu" EntityType="Self.NuocTieu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NuocTieu_TapTin" EntityType="Self.NuocTieu_TapTin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SieuAm" EntityType="Self.SieuAm" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SieuAm_TapTin" EntityType="Self.SieuAm_TapTin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SinhHoaMau" EntityType="Self.SinhHoaMau" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SinhHoaMau_TapTin" EntityType="Self.SinhHoaMau_TapTin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TapTin" EntityType="Self.TapTin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ThanhVien" EntityType="Self.ThanhVien" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_HuyetHoc_TapTin_HuyetHoc" Association="Self.FK_HuyetHoc_TapTin_HuyetHoc">
+      <End Role="HuyetHoc" EntitySet="HuyetHoc" />
+      <End Role="HuyetHoc_TapTin" EntitySet="HuyetHoc_TapTin" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HuyetHoc_TapTin_TapTin" Association="Self.FK_HuyetHoc_TapTin_TapTin">
+      <End Role="TapTin" EntitySet="TapTin" />
+      <End Role="HuyetHoc_TapTin" EntitySet="HuyetHoc_TapTin" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HuyetHoc_ThanhVien" Association="Self.FK_HuyetHoc_ThanhVien">
+      <End Role="ThanhVien" EntitySet="ThanhVien" />
+      <End Role="HuyetHoc" EntitySet="HuyetHoc" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NuocTieu_TapTin_NuocTieu" Association="Self.FK_NuocTieu_TapTin_NuocTieu">
+      <End Role="NuocTieu" EntitySet="NuocTieu" />
+      <End Role="NuocTieu_TapTin" EntitySet="NuocTieu_TapTin" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NuocTieu_TapTin_TapTin" Association="Self.FK_NuocTieu_TapTin_TapTin">
+      <End Role="TapTin" EntitySet="TapTin" />
+      <End Role="NuocTieu_TapTin" EntitySet="NuocTieu_TapTin" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NuocTieu_ThanhVien" Association="Self.FK_NuocTieu_ThanhVien">
+      <End Role="ThanhVien" EntitySet="ThanhVien" />
+      <End Role="NuocTieu" EntitySet="NuocTieu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SieuAm_TapTin_SieuAm" Association="Self.FK_SieuAm_TapTin_SieuAm">
+      <End Role="SieuAm" EntitySet="SieuAm" />
+      <End Role="SieuAm_TapTin" EntitySet="SieuAm_TapTin" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SieuAm_TapTin_TapTin" Association="Self.FK_SieuAm_TapTin_TapTin">
+      <End Role="TapTin" EntitySet="TapTin" />
+      <End Role="SieuAm_TapTin" EntitySet="SieuAm_TapTin" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SieuAm_ThanhVien" Association="Self.FK_SieuAm_ThanhVien">
+      <End Role="ThanhVien" EntitySet="ThanhVien" />
+      <End Role="SieuAm" EntitySet="SieuAm" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SinhHoaMau_TapTin_SieuAm" Association="Self.FK_SinhHoaMau_TapTin_SieuAm">
+      <End Role="SinhHoaMau" EntitySet="SinhHoaMau" />
+      <End Role="SinhHoaMau_TapTin" EntitySet="SinhHoaMau_TapTin" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SinhHoaMau_TapTin_TapTin" Association="Self.FK_SinhHoaMau_TapTin_TapTin">
+      <End Role="TapTin" EntitySet="TapTin" />
+      <End Role="SinhHoaMau_TapTin" EntitySet="SinhHoaMau_TapTin" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SinhHoaMau_ThanhVien" Association="Self.FK_SinhHoaMau_ThanhVien">
+      <End Role="ThanhVien" EntitySet="ThanhVien" />
+      <End Role="SinhHoaMau" EntitySet="SinhHoaMau" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

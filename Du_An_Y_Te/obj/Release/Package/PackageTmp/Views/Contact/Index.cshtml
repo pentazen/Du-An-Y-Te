@@ -1,0 +1,119 @@
+﻿
+@{
+    ViewBag.Title = "Liên Hệ Và Phản Hồi Với Chúng Tôi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("Partial/_breadcrum")
+<div class="contact-top">
+    <div class="container">
+        <div class="contact-text">
+            <div class="con-text">
+                <p><a href="mailto:trananhnhien@vnn.vn">trananhnhien@vnn.vn</a></p>
+                <p>  0978 340 170 </p>
+                <h6> 132 Võ Thành Trang, 11, Tân Bình, Hồ Chí Minh </h6>
+            </div>
+        </div>
+        <form class="contact-form" id="Contact">
+            <div class="left_form">
+                <div>
+                    <span><label>Họ Tên *</label> </span>
+                    <span><input name="TenNguoiPhanHoi" id="TenNguoiPhanHoi" type="text" class="textbox" required></span>
+                </div>
+                <div>
+                    <span><label>E-MAIL *</label> </span>
+                    <span><input name="Email" id="Email" type="email" class="textbox" required></span>
+                </div>
+                <div>
+                    <span><label>Số Điện Thoại *</label></span>
+                    <span><input name="SoDienThoai" id="SoDienThoai" type="number" class="textbox" required></span>
+                </div>
+                <div>
+                    <span><label>Địa Chỉ</label></span>
+                    <span><textarea name="DiaChi" id="DiaChi" type="text" class="textbox"></textarea></span>
+                </div>
+            </div>
+            <div class="right_form row">
+                <div>
+                    <span><label>Nội Dung Phản Hồi *</label></span>
+                    <span><textarea name="NoiDungPhanHoi" id="NoiDungPhanHoi"> </textarea></span>
+                </div>
+                <div>
+                    <span><input type="submit" value="Gửi" class="myButton"></span>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </form>
+
+
+
+        <div class="col-lg-12">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d979.81542526695!2d106.64898682920901!3d10.791257316908023!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x3119e6ed650f3d90!2sTANICO!5e0!3m2!1sen!2s!4v1492812193923" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        $("#Contact").submit(function (event) {
+
+            /* stop form from submitting normally */
+            event.preventDefault();
+            //sweetAlert("Success", "Complete Create New Account", "success");
+            //var ThanhVien = {
+            //    "id_LoaiThanhVien": $('#id_LoaiThanhVien').val(),
+            //    "Ho": $('#Ho').val(),
+            //    "Ten": $('#Ten').val(),
+            //    "TaiKhoan": $('#TaiKhoan').val(),
+            //    "MatKhau": $('#MatKhau').val(),
+            //    "Email": $('#Email').val(),
+            //    "CMND": $('#CMND').val(),
+            //    "SoDienThoai": $('#SoDienThoai').val(),
+            //    "DiaChi": $('#DiaChi').val(),
+            //    "ChieuCao": $('#ChieuCao').val(),
+            //    "CanNang": $('#CanNang').val(),
+            //    "MaNhomMau": $('#MaNhomMau').val(),
+            //}
+            var url = document.location.origin + "/Contact/Create";
+            //var FormSend = new FormData();
+            ////FormSend.append("ThanhVien", $('form').serialize());
+
+
+            //FormSend.append("ThanhVien", JSON.stringify(ThanhVien));
+            //FormSend.append("__RequestVerificationToken", $("input[name=__RequestVerificationToken]").val());
+
+            //jQuery.each(jQuery('#Picture')[0].files, function (i, file) {
+            //    FormSend.append('file-' + i, file);
+            //});
+            $.ajax({
+                method: "POST",
+                url: url,
+                data: $('form').serialize(),
+                success: function (data) {
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                    return false;
+                }
+            })
+               .done(function (data) {
+                   if (data == true || data == "True") {
+                       swal({
+                           title: "Thành Công",
+                           text: "Cám ơn vì đã đóng góp cho chúng tôi!",
+                           type: "success",
+                           showCancelButton: false,
+                           closeOnConfirm: true,
+                       }, function () {
+                           window.location = document.location.origin + "";
+                       })
+                   }
+                   else {
+                       sweetAlert("Thất Bại", "Hãy Tải Lại Trang", "error");
+                   }
+
+               });
+
+        });
+    </script>
+    }

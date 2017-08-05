@@ -1,0 +1,155 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<section id="main-content" class="">
+    <section class="wrapper main-wrapper row" style="">
+
+        <div class="col-xs-12">
+            <div class="page-title">
+
+                <div class="pull-left">
+                    <!-- PAGE HEADING TAG - START --><h1 class="title">Create Parameter Interval</h1><!-- PAGE HEADING TAG - END -->
+                </div>
+
+                <div class="pull-right hidden-xs">
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html"><i class="fa fa-home"></i>Home</a>
+                        </li>
+                        <li>
+                            <a href="form-elements.html">Form Elements</a>
+                        </li>
+                        <li class="active">
+                            <strong>Field Elements</strong>
+                        </li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <!-- MAIN CONTENT AREA STARTS -->
+
+        <div class="col-xs-12">
+            <section class="box ">
+                <header class="panel_header">
+                    <h2 class="title pull-left"></h2>
+                    <div class="actions panel_actions pull-right">
+                        <a class="box_toggle fa fa-chevron-down"></a>
+                        <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                        <a class="box_close fa fa-times"></a>
+                    </div>
+                </header>
+                <div class="content-body">
+                    @Html.AntiForgeryToken()
+                    <form id="TaoThangDoiChieu" class="row">
+                        <div class="col-md-8 col-sm-9 col-xs-10">
+
+                            <div class="form-group">
+                                <label class="form-label" for="field-1">Name</label>
+                                <span class="desc"> MCSA</span>
+                                <div class="controls">
+                                    <input type="text" class="form-control" id="TenLoaiXetNghiem" name="TenLoaiXetNghiem">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="field-1">Another Name</label>
+                                <span class="desc"> Thuần</span>
+                                <div class="controls">
+                                    <input type="text" class="form-control" id="TenKhac" name="TenKhac">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="field-2">Note</label>
+                                <span class="desc"> BAC</span>
+                                <div class="controls">
+                                    <textarea class="form-control autogrow" id="GhiChu" name="GhiChu"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="field-3">Upper limit</label>
+                                <span class="desc">700000</span>
+                                <div class="controls">
+                                    <input type="number" step="any" min="0" class="form-control" id="CanTren" name="CanTren">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="field-4">Lower limit</label>
+                                <span class="desc">600</span>
+                                <div class="controls">
+                                    <input type="number" step="any" min="0"  id="CanDuoi" name="CanDuoi" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="field-5">Unit</label>
+                                <span class="desc">mmol/l</span>
+                                <div class="controls">
+                                    <input type="text" id="DonVi" name="DonVi" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="field-6">Message For Exceeds the upper limit</label>
+                                <span class="desc"> Becareful!</span>
+                                <div class="controls">
+                                    <textarea class="form-control autogrow" cols="5" id="LoiKhuyenVuotQuaCanTren" name="LoiKhuyenVuotQuaCanTren" ></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="field-6">The disease occurs when it exceeds the upper limit</label>
+                                <span class="desc"> Don't eat rice</span>
+                                <div class="controls">
+                                    <textarea class="form-control autogrow" cols="5" id="ChuanDoanBenhKhiVuotQuaCanTren" name="ChuanDoanBenhKhiVuotQuaCanTren" ></textarea>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="form-label" for="field-6">Message For Exceeds the lower limit</label>
+                                <span class="desc"> Becareful!</span>
+                                <div class="controls">
+                                    <textarea class="form-control autogrow" cols="5" id="LoiKhuyenVuotQuaCanDuoi" name="LoiKhuyenVuotQuaCanDuoi"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="field-6">The disease occurs when it exceeds the upper limit</label>
+                                <span class="desc"> Don't eat rice</span>
+                                <div class="controls">
+                                    <textarea class="form-control autogrow" cols="5" id="ChuanDoanBenhKhiVuotQuaCanDuoi" name="ChuanDoanBenhKhiVuotQuaCanDuoi"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-lg ">Create</button>
+                                <button type="reset" class="btn btn-default  btn-lg">Reset</button>
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+            </section>
+        </div>
+
+
+
+        
+
+        
+
+
+
+
+        <!-- MAIN CONTENT AREA ENDS -->
+    </section>
+</section>
+@section script{
+    <script src="~/Areas/Admin/assets/plugins/autosize/autosize.min.js" type="text/javascript"></script>
+<script src="~/Areas/Admin/assets/plugins/icheck/icheck.min.js" type="text/javascript"></script>
+<script src="~/Areas/Admin/assets/jsForView/ThangDoiChieu/TaoThangDoiChieu.js" type="text/javascript"></script>
+    }
+

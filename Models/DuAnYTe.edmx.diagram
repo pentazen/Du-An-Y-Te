@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d48555f9f1d04013a2154b8d396b5b32" Name="Diagram1" ZoomLevel="94">
+        <EntityTypeShape EntityType="DuAnYTeModel.HuyetHoc" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DuAnYTeModel.HuyetHoc_TapTin" Width="1.5" PointX="5.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DuAnYTeModel.NuocTieu" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DuAnYTeModel.NuocTieu_TapTin" Width="1.5" PointX="5.25" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DuAnYTeModel.SieuAm" Width="1.5" PointX="3" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DuAnYTeModel.SieuAm_TapTin" Width="1.5" PointX="5.25" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DuAnYTeModel.SinhHoaMau" Width="1.5" PointX="3" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DuAnYTeModel.SinhHoaMau_TapTin" Width="1.5" PointX="5.25" PointY="25.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DuAnYTeModel.TapTin" Width="1.5" PointX="3" PointY="29.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DuAnYTeModel.ThanhVien" Width="1.5" PointX="0.75" PointY="12.875" IsExpanded="true" />
+        <AssociationConnector Association="DuAnYTeModel.FK_HuyetHoc_TapTin_HuyetHoc" ManuallyRouted="false" />
+        <AssociationConnector Association="DuAnYTeModel.FK_HuyetHoc_ThanhVien" ManuallyRouted="false" />
+        <AssociationConnector Association="DuAnYTeModel.FK_HuyetHoc_TapTin_TapTin" ManuallyRouted="false" />
+        <AssociationConnector Association="DuAnYTeModel.FK_NuocTieu_TapTin_NuocTieu" ManuallyRouted="false" />
+        <AssociationConnector Association="DuAnYTeModel.FK_NuocTieu_ThanhVien" ManuallyRouted="false" />
+        <AssociationConnector Association="DuAnYTeModel.FK_NuocTieu_TapTin_TapTin" ManuallyRouted="false" />
+        <AssociationConnector Association="DuAnYTeModel.FK_SieuAm_TapTin_SieuAm" ManuallyRouted="false" />
+        <AssociationConnector Association="DuAnYTeModel.FK_SieuAm_ThanhVien" ManuallyRouted="false" />
+        <AssociationConnector Association="DuAnYTeModel.FK_SieuAm_TapTin_TapTin" ManuallyRouted="false" />
+        <AssociationConnector Association="DuAnYTeModel.FK_SinhHoaMau_TapTin_SieuAm" ManuallyRouted="false" />
+        <AssociationConnector Association="DuAnYTeModel.FK_SinhHoaMau_ThanhVien" ManuallyRouted="false" />
+        <AssociationConnector Association="DuAnYTeModel.FK_SinhHoaMau_TapTin_TapTin" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,492 @@
+﻿
+@{
+    ViewBag.Title = "Đăng Ký / Đăng Nhập";
+}
+@Html.Partial("Partial/_breadcrum")
+<style>
+    *, :after, :before {
+        box-sizing: border-box;
+    }
+
+    .clearfix:after, .clearfix:before {
+        content: '';
+        display: table;
+    }
+
+    .clearfix:after {
+        clear: both;
+        display: block;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .login-wrap {
+        width: 100%;
+        margin: auto;
+        max-width: 525px;
+        min-height: 670px;
+        position: relative;
+        box-shadow: 0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+    }
+
+    .login-html {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        padding: 90px 70px 50px 70px;
+        background: rgba(40,57,101,.9);
+        background: #23b5b9;
+    }
+
+        .login-html .sign-in-htm,
+        .login-html .sign-up-htm {
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            position: absolute;
+            -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-transition: all .4s linear;
+            transition: all .4s linear;
+        }
+
+        .login-html .sign-in,
+        .login-html .sign-up,
+        .login-form .group .check {
+            display: none;
+        }
+
+        .login-html .tab,
+        .login-form .group .label,
+        .login-form .group .button {
+            text-transform: uppercase;
+        }
+
+        .login-html .tab {
+            font-size: 22px;
+            margin-right: 15px;
+            padding-bottom: 5px;
+            margin: 0 15px 10px 0;
+            display: inline-block;
+            border-bottom: 2px solid transparent;
+        }
+
+        .login-html .sign-in:checked + .tab,
+        .login-html .sign-up:checked + .tab {
+            color: #fff;
+            border-color: #1161ee;
+        }
+
+    .login-form {
+        min-height: 345px;
+        position: relative;
+        -webkit-perspective: 1000px;
+        perspective: 1000px;
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+    }
+
+        .login-form .group {
+            margin-bottom: 15px;
+        }
+
+            .login-form .group .label,
+            .login-form .group .input,
+            .login-form .group .button {
+                width: 100%;
+                color: #fff;
+                display: block;
+            }
+
+            .login-form .group .input,
+            .login-form .group .button {
+                border: none;
+                padding: 15px 20px;
+                border-radius: 25px;
+                background: rgba(255,255,255,.1);
+            }
+
+            .login-form .group input[data-type="password"] {
+                text-security: circle;
+                -webkit-text-security: circle;
+            }
+
+            .login-form .group .label {
+                color: #fff;
+                font-size: 12px;
+                text-align: left;
+            }
+
+            .login-form .group .button {
+                background: #1161ee;
+            }
+
+            .login-form .group label .icon {
+                width: 15px;
+                height: 15px;
+                border-radius: 2px;
+                position: relative;
+                display: inline-block;
+                background: rgba(255,255,255,.1);
+            }
+
+                .login-form .group label .icon:before,
+                .login-form .group label .icon:after {
+                    content: '';
+                    width: 10px;
+                    height: 2px;
+                    background: #fff;
+                    position: absolute;
+                    -webkit-transition: all .2s ease-in-out 0s;
+                    transition: all .2s ease-in-out 0s;
+                }
+
+                .login-form .group label .icon:before {
+                    left: 3px;
+                    width: 5px;
+                    bottom: 6px;
+                    -webkit-transform: scale(0) rotate(0);
+                    transform: scale(0) rotate(0);
+                }
+
+                .login-form .group label .icon:after {
+                    top: 6px;
+                    right: 0;
+                    -webkit-transform: scale(0) rotate(0);
+                    transform: scale(0) rotate(0);
+                }
+
+            .login-form .group .check:checked + label {
+                color: #fff;
+            }
+
+                .login-form .group .check:checked + label .icon {
+                    background: #1161ee;
+                }
+
+                    .login-form .group .check:checked + label .icon:before {
+                        -webkit-transform: scale(1) rotate(45deg);
+                        transform: scale(1) rotate(45deg);
+                    }
+
+                    .login-form .group .check:checked + label .icon:after {
+                        -webkit-transform: scale(1) rotate(-45deg);
+                        transform: scale(1) rotate(-45deg);
+                    }
+
+    .login-html .sign-in:checked + .tab + .sign-up + .tab + .login-form .sign-in-htm {
+        -webkit-transform: rotate(0);
+        transform: rotate(0);
+    }
+
+    .login-html .sign-up:checked + .tab + .login-form .sign-up-htm {
+        -webkit-transform: rotate(0);
+        transform: rotate(0);
+    }
+
+    .hr {
+        height: 2px;
+        margin: 60px 0 50px 0;
+        background: rgba(255,255,255,.2);
+    }
+
+    .foot-lnk {
+        text-align: center;
+    }
+</style>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12" style="padding:15px;">
+
+
+            <div class="login-wrap">
+                <div class="login-html">
+                    <input id="tab-1" type="radio" name="tab" class="sign-in" checked=""><label for="tab-1" class="tab">Sign In</label>
+                    <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+                    <div class="login-form">
+                        <form id="dangnhap" class="sign-in-htm">
+                            <div class="group">
+                                <label for="user" class="label">Username</label>
+                                <input id="taikhoan" type="text" class="input" required>
+                            </div>
+                            <div class="group">
+                                <label for="pass" class="label">Password</label>
+                                <input id="matkhau" type="password" class="input" data-type="password" required>
+                            </div>
+                            <div class="group">
+                                <input id="check" type="checkbox" class="check" checked="">
+                                <label for="check"><span class="icon"></span> Keep me Signed in</label>
+                            </div>
+                            <div class="group">
+                                <input type="submit" class="button" value="Sign In">
+                            </div>
+                            <div class="hr"></div>
+                            <div class="foot-lnk">
+                                <a href="#forgot" onclick="forgotPass()">Forgot Password?</a>
+                            </div>
+                        </form>
+                        <form id="dangky" class="sign-up-htm">
+                            @*@Html.AntiForgeryToken();*@
+                            <div class="group">
+                                <label for="user" class="label">Username</label>
+                                <input id="dangkytaikhoan" type="text" class="input">
+                            </div>
+                            <div class="group">
+                                <label for="pass" class="label">Password</label>
+                                <input id="dangkymatkhau" type="password" class="input" data-type="password">
+                            </div>
+                            <div class="group">
+                                <label for="pass" class="label">Repeat Password</label>
+                                <input id="dangkyxacnhanmatkhau" type="password" class="input" data-type="password">
+                            </div>
+                            <div class="group">
+                                <label for="pass" class="label">Email Address</label>
+                                <input id="dangkyemail" type="" class="input">
+                            </div>
+                            <div class="group">
+                                <input type="submit" class="button" value="Sign Up">
+                            </div>
+                            <div class="hr"></div>
+                            <div class="foot-lnk">
+                                <label for="tab-1">
+                                    Already Member?
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $("#dangnhap").submit(function (event) {
+
+        /* stop form from submitting normally */
+        event.preventDefault();
+        swal({
+            title: "Thông Báo",
+            text: "Vui lòng đợi trong giây lát!",
+            type: "info",
+            //showCancelButton: false,
+            showConfirmButton: false,
+            timer: 1,
+            //closeOnConfirm: false,
+            //showLoaderOnConfirm: true,
+        },
+       function () {
+           var url = document.location.origin + "/Account/Login";
+           var dataJSON = { TaiKhoan: $('#taikhoan').val(), MatKhau: $('#matkhau').val() };
+           $.ajax({
+               method: "POST",
+               url: url,
+               data: dataJSON,
+               //data: JSON.stringify(dataJSON),
+               //contentType: 'application/json; charset=utf-8',
+               //dataType: 'json',
+               success: function (data) {
+               },
+               error: function (xhr) {
+                   console.log(xhr);
+                   return false;
+               }
+           })
+              .done(function (data) {
+                  console.log(data)
+                  if (data == true || data == "True") {
+
+                      //swal({
+                      //    title: "Thành Công",
+                      //    text: "Đăng nhập thành công!",
+                      //    type: "succses",
+                      //},
+                      // function () {
+                      //     window.location = "/";
+                      // });
+                      swal({
+                          title: "Thành Công",
+                          text: "Đăng nhập thành công!",
+                          type: "success",
+                          showCancelButton: false,
+                          closeOnConfirm: true,
+                      }, function () {
+                          window.location = "/";
+                      })
+
+
+                  }
+                  else {
+                      sweetAlert("Thất bại", "Đăng nhập thất bại!", "error");
+                  }
+
+              });
+       });
+        //console.log("Vui lòng đợi trong giây lát!");
+        //var url = document.location.origin + "/api/Account/Login";
+
+
+    });
+
+    $("#dangky").submit(function (event) {
+
+        /* stop form from submitting normally */
+        event.preventDefault();
+        //alert("YOLO");
+        swal({
+            title: "Thông Báo",
+            text: "Vui lòng đợi trong giây lát!",
+            type: "info",
+            //showCancelButton: false,
+            showConfirmButton: false,
+            timer: 1,
+            //closeOnConfirm: false,
+            //showLoaderOnConfirm: true,
+        },
+      function () {
+          var url = document.location.origin + "/api/Account/SignUp";
+          var dataJSON = { TaiKhoan: $('#dangkytaikhoan').val(), MatKhau: $('#dangkymatkhau').val(), MatKhauXacNhan: $('#dangkyxacnhanmatkhau').val(), Email: $('#dangkyemail').val() };
+          $.ajax({
+              method: "POST",
+              url: url,
+              data: JSON.stringify(dataJSON),
+              dataType: 'json',
+              contentType: 'application/json; charset=utf-8',
+              success: function (data) {
+              },
+              error: function (xhr) {
+                  console.log(xhr);
+                  return false;
+              }
+          })
+             .done(function (data) {
+                 if (typeof data["KetQua"] !== undefined && typeof data["KetQua"] !== "undefined") {
+                     if (data["KetQua"] == true || data["KetQua"] == "True") {
+                         //sweetAlert("Thành Công", "Đăng ký thành công!\n" + data["Message"], "success");
+                         swal({
+                             title: "Thành Công",
+                             text: "Đăng ký thành công!\n " + data["Message"],
+                             html: true,
+                             type: "success",
+                         });
+                         //alert("Đăng ký thành công!\n" + data["Message"]);
+                         $("#dangky")[0].reset();
+                         //$('label[for="tab-1"].tab').click();
+                     }
+                     else {
+                         sweetAlert("Thất bại", "Đăng ký thất bại!\n" + data["Message"], "error");
+                     }
+
+                     console.log(data["KetQua"]);
+                 }
+                 else {
+                     var MessageError = "";
+                     var DanhSachLoi = data;
+                     //var Loi = data[0]._errors;
+                     for (var i = 0; i < DanhSachLoi.length; i++) {
+                         var Loi = DanhSachLoi[i]._errors[0];
+                         //var Loi = DanhSachLoi[i];
+                         console.log(Loi[Object.keys(Loi)[1]]);
+                         MessageError += Loi[Object.keys(Loi)[1]] + "\n";
+                     }
+                     if (MessageError !== '')
+                         sweetAlert("Thất bại", MessageError, "error");
+                     if (MessageError === '')
+                         sweetAlert("Thất bại", "Tài khoản hoặc email đã tồn tại", "error");
+                 }
+
+
+             });
+      })
+
+
+
+
+    });
+
+
+    function forgotPass() {
+
+        swal({
+            title: "Quên Mật Khẩu",
+            text: "Hãy nhập Tài Khoản của bạn để chúng tôi gửi mật khẩu mới cho bạn!",
+            type: "input",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            animation: "slide-from-top",
+            inputPlaceholder: "Ví dụ : abc@@gmail.com",
+            showLoaderOnConfirm: true,
+            //showConfirmButton: false,
+            //allowOutsideClick: false
+        },
+        function (inputValue) {
+            if (inputValue === false) return false;
+
+            if (inputValue === "") {
+                swal.showInputError("Vui lòng điền mật khẩu");
+                return false
+            }
+
+
+            var url = document.location.origin + "/api/Account/ForgetPassword";
+            var dataJSON = { TaiKhoan: inputValue };
+            $.ajax({
+                method: "POST",
+                url: url,
+                data: JSON.stringify(dataJSON),
+                //data: { taikhoan: inputValue },
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                    return false;
+                }
+            })
+               .done(function (data) {
+                   console.log(data);
+                   data = JSON.parse(data);
+                   if (typeof data["KetQua"] !== undefined && typeof data["KetQua"] !== "undefined") {
+                       if (data["KetQua"] == true || data["KetQua"] == "True") {
+                           //sweetAlert("Thành Công", "Đăng ký thành công!\n" + data["Message"], "success");
+                           swal({
+                               title: "Thành Công",
+                               text: data["Message"],
+                               html: true,
+                               type: "success",
+                           });
+                           //alert("Đăng ký thành công!\n" + data["Message"]);
+                           $("#dangky")[0].reset();
+                           //$('label[for="tab-1"].tab').click();
+                       }
+                       else {
+                           swal({
+                               title: "Thất bại",
+                               text: data["Message"],
+                               type: "error",
+                               closeOnConfirm: false,
+                           }, function () {
+                               forgotPass();
+                           });
+
+                       }
+
+
+                   }
+
+
+               });
+
+
+
+
+        });
+    }
+</script> 

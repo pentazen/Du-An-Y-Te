@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    @model Service.EntityModel.PhanHoi
+}
+
+
+
+        <div class="col-xs-12">
+            <div class="page-title">
+
+                <div class="pull-left">
+                    <!-- PAGE HEADING TAG - START --><h1 class="title">Feedback Detail</h1><!-- PAGE HEADING TAG - END -->
+                </div>
+
+                <div class="pull-right hidden-xs">
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="@Url.Action("Index","Home")"><i class="fa fa-home"></i>Home</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index","PhanHoi")">Feedback List </a>
+                        </li>
+                        <li class="active">
+                            <strong>Feedback Detail</strong>
+                        </li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <!-- MAIN CONTENT AREA STARTS -->
+
+        <div class="col-xs-12">
+            <section class="box ">
+                <header class="panel_header">
+                    <h2 class="title pull-left"></h2>
+                    <div class="actions panel_actions pull-right">
+                        <a class="box_toggle fa fa-chevron-down"></a>
+                        <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                        <a class="box_close fa fa-times"></a>
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <div class="col-md-8 col-sm-9 col-xs-10">
+
+                            <div class="form-group">
+                                <label class="form-label" for="field-1">Name of contributor</label>
+                                <span class="desc"></span>
+                                <div class="controls">
+                                    <input type="text" class="form-control" value="@Model.TenNguoiPhanHoi" disabled="disabled">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="field-2">Email</label>
+                                <span class="desc"></span>
+                                <div class="controls">
+                                    <input type="password" value="@Model.Email" disabled="disabled" class="form-control" id="field-2">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="field-3">Phone Number</label>
+                                <span class="desc"></span>
+                                <div class="controls">
+                                    <input type="text" class="form-control" id="field-3" value="@Model.SoDienThoai" disabled="disabled">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="field-4">Date</label>
+                                <span class="desc"></span>
+                                <div class="controls">
+                                    <input type="text" id="field-4" class="form-control" value="@Model.NgayTao" disabled="disabled">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="field-6">Main content</label>
+                                <span class="desc"></span>
+                                <div class="controls">
+                                    <textarea class="form-control autogrow" cols="10" id="field-6" value="@Model.NoiDungPhanHoi" disabled="disabled">@Model.NoiDungPhanHoi</textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </section>
+        </div>
+
+
+
+        
+
+        
+
+
+
+
+        <!-- MAIN CONTENT AREA ENDS -->
+
+
+@section script{
+    <script src="~/Areas/Admin/assets/plugins/autosize/autosize.min.js" type="text/javascript"></script>
+    <script src="~/Areas/Admin/assets/plugins/icheck/icheck.min.js" type="text/javascript"></script>
+}

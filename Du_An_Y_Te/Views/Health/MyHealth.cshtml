@@ -1,0 +1,311 @@
+﻿
+@using Service.EntityModel;
+@model List<Service.EntityModel.ThangDoiChieu>
+@{
+    ViewBag.Title = "Kiểm Tra Thông Số";
+
+}
+@Html.Partial("Partial/_breadcrum")
+<script src="~/Scripts/plugins/ChartJS/Chart.bundle.js"></script>
+<script src="~/Scripts/plugins/ChartJS/utils.js"></script>
+<div class="typography">
+    <div class="container">
+        <div class="grid_3 grid_4 wow fadeInLeft animated" data-wow-delay=".5s">
+            <div class="bs-example">
+                <div class="mb-60">
+                    <h1>Thông Tin Sức Khỏe</h1>
+
+                </div>
+            </div>
+        </div>
+        <div class="grid_3 grid_5 wow fadeInRight animated" data-wow-delay=".5s">
+            <form class="form-horizontal" action="/" method="post">
+                <input type="hidden" id="IdThanhVien" value="1" />
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Thông Số Của</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" id="SelectLoaiXetNghiem" style="max-width:100%;">
+                            @foreach (ThangDoiChieu item in Model)
+                            {
+                                <option value="@item.LoaiXetNghiem.id">@item.LoaiXetNghiem.TenLoaiXetNghiem</option>
+                            }
+                        </select>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"></label>
+                    <div class="col-sm-10">
+                        <button type="button" class="btn btn-success" onclick="MM()">Xem Thông Tin</button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+        <div class="grid_3 grid_5 wow fadeInRight animated" data-wow-delay=".5s">
+            <div class="row">
+                <div class="col-lg-12" id="checkBody">
+                    <canvas id="canvas"></canvas>
+                </div>
+                <div class="col-lg-12">
+                    @*<button id="randomizeData">Randomize Data</button>
+                        <button id="addDataset">Add Dataset</button>
+                        <button id="removeDataset">Remove Dataset</button>
+                        <button id="addData">Add Data</button>
+                        <button id="removeData">Remove Data</button>*@
+
+                </div>
+            </div>
+
+        </div>
+        <div class="grid_3 grid_5 wow fadeInRight animated" data-wow-delay=".5s">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div action="" method="POST" role="form">
+                        <legend>Lời khuyên</legend>
+
+                        <div class="form-group">
+                            <label for=""></label>
+
+                            <textarea  id="LoiKhuyen"  class="form-control" rows="10" placeholder="Lời khuyên">
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div action="" method="POST" role="form">
+                        <legend>Các bệnh có thể gặp nếu vẫn ở tình trạng này</legend>
+
+                        <div class="form-group">
+                            <label for=""></label>
+                            <textarea class="form-control" id="BenhGapPhai"  rows="10"  placeholder="Các bệnh có thể gặp nếu vẫn ở tình trạng này"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<input type="hidden" name="idThanhVien" id="idThanhVien" value="@ViewBag.idThanhVien" />
+<script>
+
+    function MM() {
+        var url = document.location.origin + "/api/Health/LayGiaTriThangDoiChieuVaGiaTriLoaiXetNghiem";
+        var FormSend = new FormData();
+        $.ajax({
+            method: "GET",
+            url: url,
+            // data: JSON.stringify(datapost),
+            data: { 'idThanhVien': $("#idThanhVien").val(), 'idThongSo': $('#SelectLoaiXetNghiem').val() },
+            contentType: 'application/json',
+            success: function (data) {
+            },
+            error: function (xhr) {
+                console.log(xhr);
+            }
+        })
+           .done(function (datas) {
+               console.log(datas)
+               if (datas != false && datas != "false" && datas.DateRange.length > 0 && datas.Giatri.length > 0) {
+                   DataPoint = datas;
+                   data.datasets[0].data = datas.Giatri;
+                   //data.datasets[0].data = [3000.5,8000.4];
+                   data.labels = datas.DateRange;
+                   config.options.horizontalLine[0].y = datas.CanTren;
+                   config.options.horizontalLine[1].y = datas.CanDuoi;
+                   MaxValue = datas.CanTren;
+                   MinValue = datas.CanDuoi;
+                   console.log();
+                   if (Math.max.apply(null, datas.Giatri) > datas.CanTren) {
+                       delete config.options.scales.yAxes[0].ticks.max;
+                   }
+                   else {
+                       config.options.scales.yAxes[0].ticks.max = datas.CanTren;
+                   }
+
+                   if (Math.min.apply(null, datas.Giatri) < datas.CanDuoi) {
+                       delete config.options.scales.yAxes[0].ticks.min;
+                   }
+                   else {
+                       config.options.scales.yAxes[0].ticks.min = datas.CanDuoi;
+                   }
+
+                   if (datas.CanTren != null) {
+                       //delete config.options.scales.yAxes[0].ticks.max;
+                       //config.options.scales.yAxes[0].ticks.max = datas.CanTren;
+                       config.options.horizontalLine[0].y = datas.CanTren;
+                       console.log(config.options.horizontalLine[0].y);
+                   }
+                   if (datas.CanDuoi != null) {
+                       //delete config.options.scales.yAxes[0].ticks.min;
+                       //config.options.scales.yAxes[0].ticks.min = datas.CanDuoi;
+                       config.options.horizontalLine[1].y = datas.CanDuoi;
+                       console.log(config.options.horizontalLine[1].y);
+                   }
+                   //console.log(config.options.horizontalLine);
+                   var lastUnit = datas.Giatri[datas.Giatri.length - 1];
+                   if (lastUnit >= datas.CanTren)
+                   {
+                       $('#LoiKhuyen').val('');
+                       $('#BenhGapPhai').val('');
+                       $('#LoiKhuyen').val (datas.LoiKhuyenVuotQuaCanTren);
+                       $('#BenhGapPhai').val (datas.ChuanDoanBenhKhiVuotQuaCanTren);
+                   }
+                   if (lastUnit <= datas.CanDuoi) {
+                       $('#LoiKhuyen').val('');
+                       $('#BenhGapPhai').val('');
+                       $('#LoiKhuyen').val(datas.LoiKhuyenVuotQuaCanDuoi)
+                       $('#BenhGapPhai').val(datas.ChuanDoanBenhKhiVuotQuaCanDuoi) ;
+                       console.log("s")
+                   }
+                   //
+                   $('#checkBody').html('<canvas id="canvas"></canvas>');
+                   ctx = canvas.getContext("2d");
+                   var myChart2 = new Chart(ctx, config);
+               }
+
+                   //if (datas == true || datas == "True") {
+                   //    alert("Cập nhật huyết học thành công!");
+                   //}
+               else {
+                   sweetAlert("Thông Báo", "Bạn không có đủ thông số để chúng tôi có thể tính toán!", "warning");
+               }
+
+           });
+    }
+    function newDateYear(year) {
+        var dat = new Date();
+        console.log(dat.getFullYear() + year);
+        dat.setFullYear(dat.getFullYear() + year);
+        return dat;
+    }
+    var DateRange = [newDateYear(-18), newDateYear(-3), newDateYear(2), newDateYear(3), newDateYear(4), newDateYear(5), newDateYear(6), newDateYear(7)];
+    var DataPoint = [17.3, 12, 14, 12.5, 11, 14, 7];
+    var MinValue = 10;
+    var MaxValue = 17;
+    var data = {
+        labels: DateRange,
+        datasets: [{
+            label: "Chỉ Số Xét Nghiệm",
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: "rgba(75,192,192,0.4)",
+            borderColor: "rgba(75,192,192,1)",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            //pointBorderWidth: 1,
+            //pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            //pointHoverBorderWidth: 2,
+            //pointRadius: 1,
+            //pointHitRadius: 10,
+            data: DataPoint,
+            spanGaps: false,
+            scaleSteps: 4,
+            scaleOverride: true,
+            scaleStepWidth: 50,
+            scaleStartValue: 0
+        }]
+    };
+    var config = {
+        type: 'line',
+        data: data,
+        options: {
+            scales: {
+                xAxes: [{
+                    type: 'time',
+                    time: {
+                        displayFormats: {
+                            'millisecond': 'DD/MM/YYYY',
+                            'second': 'DD/MM/YYYY',
+                            'minute': 'DD/MM/YYYY',
+                            'hour': 'DD/MM/YYYY',
+                            'day': 'DD/MM/YYYY',
+                            'week': 'DD/MM/YYYY',
+                            'month': 'DD/MM/YYYY',
+                            'quarter': 'DD/MM/YYYY',
+                            'year': 'DD/MM/YYYY',
+                        }
+                    },
+                    position: 'bottom',
+                }],
+                yAxes: [{
+                    ticks: {
+                        //max: MaxValue
+                        //stepSize: 0.5
+
+                    }
+                }],
+            },
+            "horizontalLine": [{
+                "y": MaxValue,
+                "style": "rgba(255, 0, 0, .4)",
+                "text": "max",
+
+            }
+
+            , {
+                "y": MinValue,
+                "text": "min"
+            }]
+        }
+    };
+    var horizonalLinePlugin = {
+        afterDraw: function (chartInstance) {
+            var yScale = chartInstance.scales["y-axis-0"];
+            var canvas = chartInstance.chart;
+            var ctx = canvas.ctx;
+            var index;
+            var line;
+            var style;
+
+            if (chartInstance.options.horizontalLine) {
+                for (index = 0; index < chartInstance.options.horizontalLine.length; index++) {
+                    line = chartInstance.options.horizontalLine[index];
+
+                    if (!line.style) {
+                        style = "rgba(169,169,169, .6)";
+                    } else {
+                        style = line.style;
+                    }
+
+                    if (line.y) {
+                        yValue = yScale.getPixelForValue(line.y);
+                    } else {
+                        yValue = 0;
+                    }
+
+                    ctx.lineWidth = 3;
+
+                    if (yValue) {
+                        ctx.beginPath();
+                        ctx.moveTo(0, yValue);
+                        ctx.lineTo(canvas.width, yValue);
+                        ctx.strokeStyle = style;
+                        ctx.stroke();
+                    }
+
+                    if (line.text) {
+                        ctx.fillStyle = style;
+                        ctx.fillText(line.text, 0, yValue + ctx.lineWidth);
+                    }
+                }
+                return;
+            };
+        }
+    };
+    Chart.pluginService.register(horizonalLinePlugin);
+    window.onload = function () {
+        ctx = canvas.getContext("2d");
+        //var myChart2 = new Chart(ctx, config);
+    };
+
+
+
+</script>

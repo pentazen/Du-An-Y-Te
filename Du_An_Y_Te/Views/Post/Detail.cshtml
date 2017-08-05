@@ -1,0 +1,77 @@
+﻿@model Service.EntityModel.BaiViet
+
+@{
+    ViewBag.Title = "Nội dung bài viết";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("Partial/_breadcrum")
+<div class="row" style="">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12  mb-60 blog-content">
+                <br />
+                <br />
+                <br />
+                <br />
+                <!-- Blog Post -->
+                <!-- Title -->
+                <h1>@Model.TenBaiViet</h1>
+
+                <!-- Author -->
+                <p class="lead">
+                    by <a>@Model.ThanhVien.TaiKhoan</a>
+                </p>
+
+                <hr>
+
+                <!-- Date/Time -->
+                <p><span class="glyphicon glyphicon-time"></span> Ngày viết :@(Convert.ToDateTime(Model.NgayTao).ToShortDateString())  </p>
+
+                <hr>
+
+                <!-- Preview Image -->
+                <img class="img-responsive" src="@Url.Action("GetFileByURL", "Account", new { URL = Model.TapTin.DuongDan }   )" alt="" style="width:100%;height:300px;">
+
+                <hr>
+
+                <!-- Post Content -->
+                <div class="blog-content">
+                    @Html.Raw(HttpUtility.HtmlDecode(Model.NoiDungBaiViet))
+                </div>
+                <hr>
+
+                <hr>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section style{
+    @*<link href="~/Areas/Admin/assets/plugins/ckeditor/contents.css" rel="stylesheet" type="text/css" />*@
+    <link href="~/Areas/Admin/assets/css/style.css" rel="stylesheet" type="text/css" />
+    <style>
+        .logo h1 a {
+            font-weight: 700;
+            font-size: 1em;
+            color: #333;
+            padding-top: 4px;
+        }
+        .navbar-default {
+            background: none;
+            border: none;
+        }
+        body{
+            background-color:white;
+        }
+    </style>
+    }
+<script>
+    var styleSheets = document.styleSheets;
+    var href = 'http://localhost:49833/css/slider.css';
+    for (var i = 0; i < styleSheets.length; i++) {
+        if (styleSheets[i].href == href) {
+            styleSheets[i].disabled = true;
+            break;
+        }
+    }
+</script>

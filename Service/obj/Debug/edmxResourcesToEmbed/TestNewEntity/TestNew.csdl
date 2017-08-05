@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TestNEwModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="BaiViet">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_ThanhVien_DangBaiViet" Type="Int32" Nullable="false" />
+    <Property Name="TenBaiViet" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="NoiDungBaiViet" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="NgayTao" Type="DateTime" Precision="3" />
+    <Property Name="TrangThai" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="BenhAn">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_ThanhVien_SoHuu" Type="Int32" Nullable="false" />
+    <Property Name="TenBenhAn" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="NoiKham" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="BacSiKham" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="KetQua" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="GhiChu" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="KetQuaNgay" Type="DateTime" Precision="3" />
+    <Property Name="NgayTao" Type="DateTime" Precision="3" />
+    <Property Name="TrangThai" Type="Boolean" />
+    <NavigationProperty Name="BenhAn_LoaiXetNghiem" Relationship="Self.FK_BenhAn_LoaiXetNghiem_BenhAn" FromRole="BenhAn" ToRole="BenhAn_LoaiXetNghiem" />
+    <NavigationProperty Name="BenhAn_TapTin" Relationship="Self.FK_BenhAn_TapTin_BenhAn" FromRole="BenhAn" ToRole="BenhAn_TapTin" />
+    <NavigationProperty Name="ThanhVien" Relationship="Self.FK_BenhAn_ThanhVien" FromRole="BenhAn" ToRole="ThanhVien" />
+  </EntityType>
+  <EntityType Name="BenhAn_LoaiXetNghiem">
+    <Key>
+      <PropertyRef Name="id_BenhAn" />
+      <PropertyRef Name="id_LoaiXetNghiem" />
+    </Key>
+    <Property Name="id_BenhAn" Type="Int32" Nullable="false" />
+    <Property Name="id_LoaiXetNghiem" Type="Int32" Nullable="false" />
+    <Property Name="GiaTri" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DonVi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TrangThai" Type="Boolean" />
+    <NavigationProperty Name="BenhAn" Relationship="Self.FK_BenhAn_LoaiXetNghiem_BenhAn" FromRole="BenhAn_LoaiXetNghiem" ToRole="BenhAn" />
+    <NavigationProperty Name="LoaiXetNghiem" Relationship="Self.FK_BenhAn_LoaiXetNghiem_LoaiXetNghiem" FromRole="BenhAn_LoaiXetNghiem" ToRole="LoaiXetNghiem" />
+  </EntityType>
+  <EntityType Name="BenhAn_TapTin">
+    <Key>
+      <PropertyRef Name="id_BenhAn" />
+      <PropertyRef Name="id_TapTin" />
+    </Key>
+    <Property Name="id_BenhAn" Type="Int32" Nullable="false" />
+    <Property Name="id_TapTin" Type="Int32" Nullable="false" />
+    <Property Name="TrangThai" Type="Boolean" />
+    <NavigationProperty Name="BenhAn" Relationship="Self.FK_BenhAn_TapTin_BenhAn" FromRole="BenhAn_TapTin" ToRole="BenhAn" />
+    <NavigationProperty Name="TapTin" Relationship="Self.FK_BenhAn_TapTin_TapTin" FromRole="BenhAn_TapTin" ToRole="TapTin" />
+  </EntityType>
+  <EntityType Name="LoaiXetNghiem">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenLoaiXetNghiem" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="TenKhac" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="GhiChu" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="NgayTao" Type="DateTime" Precision="3" />
+    <Property Name="TrangThai" Type="Boolean" />
+    <NavigationProperty Name="BenhAn_LoaiXetNghiem" Relationship="Self.FK_BenhAn_LoaiXetNghiem_LoaiXetNghiem" FromRole="LoaiXetNghiem" ToRole="BenhAn_LoaiXetNghiem" />
+    <NavigationProperty Name="ThangDoiChieux" Relationship="Self.FK_ThangDoiChieu_LoaiXetNghiem" FromRole="LoaiXetNghiem" ToRole="ThangDoiChieu" />
+  </EntityType>
+  <EntityType Name="TapTin">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenTapTin" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="LoaiTapTin" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DuongDan" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NgayTao" Type="DateTime" Precision="3" />
+    <Property Name="KichThuoc" Type="Double" />
+    <Property Name="TrangThai" Type="Boolean" />
+    <NavigationProperty Name="BenhAn_TapTin" Relationship="Self.FK_BenhAn_TapTin_TapTin" FromRole="TapTin" ToRole="BenhAn_TapTin" />
+  </EntityType>
+  <EntityType Name="ThangDoiChieu">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="id_LoaiXetNghiem" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_LoaiXetNghiem" Type="Int32" Nullable="false" />
+    <Property Name="CanTren" Type="Double" />
+    <Property Name="CanDuoi" Type="Double" />
+    <Property Name="DonVi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="NgayApDung" Type="DateTime" Precision="3" />
+    <Property Name="NgayTao" Type="DateTime" Precision="3" />
+    <Property Name="TrangThai" Type="Boolean" />
+    <NavigationProperty Name="LoaiXetNghiem" Relationship="Self.FK_ThangDoiChieu_LoaiXetNghiem" FromRole="ThangDoiChieu" ToRole="LoaiXetNghiem" />
+  </EntityType>
+  <EntityType Name="ThanhVien">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TaiKhoan" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MatKhau" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Ho" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Ten" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="TenDayDu" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="NTNS" Type="DateTime" Precision="0" />
+    <Property Name="CMND" Type="Int32" />
+    <Property Name="SoDienThoai" Type="Int32" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DiaChi" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Picture" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ChieuCao" Type="Double" />
+    <Property Name="CanNang" Type="Double" />
+    <Property Name="MaNhomMau" Type="Int32" />
+    <Property Name="TrangThai" Type="Boolean" />
+    <Property Name="LanCuoiDangNhap" Type="DateTime" Precision="3" />
+    <Property Name="LanCuoiDangXuat" Type="DateTime" Precision="3" />
+    <Property Name="NgayTao" Type="DateTime" Precision="3" />
+    <Property Name="NgaySua" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="BenhAns" Relationship="Self.FK_BenhAn_ThanhVien" FromRole="ThanhVien" ToRole="BenhAn" />
+  </EntityType>
+  <Association Name="FK_BenhAn_LoaiXetNghiem_BenhAn">
+    <End Role="BenhAn" Type="Self.BenhAn" Multiplicity="1" />
+    <End Role="BenhAn_LoaiXetNghiem" Type="Self.BenhAn_LoaiXetNghiem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BenhAn">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="BenhAn_LoaiXetNghiem">
+        <PropertyRef Name="id_BenhAn" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BenhAn_TapTin_BenhAn">
+    <End Role="BenhAn" Type="Self.BenhAn" Multiplicity="1" />
+    <End Role="BenhAn_TapTin" Type="Self.BenhAn_TapTin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BenhAn">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="BenhAn_TapTin">
+        <PropertyRef Name="id_BenhAn" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BenhAn_ThanhVien">
+    <End Role="ThanhVien" Type="Self.ThanhVien" Multiplicity="1" />
+    <End Role="BenhAn" Type="Self.BenhAn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ThanhVien">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="BenhAn">
+        <PropertyRef Name="id_ThanhVien_SoHuu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BenhAn_LoaiXetNghiem_LoaiXetNghiem">
+    <End Role="LoaiXetNghiem" Type="Self.LoaiXetNghiem" Multiplicity="1" />
+    <End Role="BenhAn_LoaiXetNghiem" Type="Self.BenhAn_LoaiXetNghiem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoaiXetNghiem">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="BenhAn_LoaiXetNghiem">
+        <PropertyRef Name="id_LoaiXetNghiem" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BenhAn_TapTin_TapTin">
+    <End Role="TapTin" Type="Self.TapTin" Multiplicity="1" />
+    <End Role="BenhAn_TapTin" Type="Self.BenhAn_TapTin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TapTin">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="BenhAn_TapTin">
+        <PropertyRef Name="id_TapTin" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ThangDoiChieu_LoaiXetNghiem">
+    <End Role="LoaiXetNghiem" Type="Self.LoaiXetNghiem" Multiplicity="1" />
+    <End Role="ThangDoiChieu" Type="Self.ThangDoiChieu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoaiXetNghiem">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ThangDoiChieu">
+        <PropertyRef Name="id_LoaiXetNghiem" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TestNEwEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BaiViets" EntityType="Self.BaiViet" />
+    <EntitySet Name="BenhAns" EntityType="Self.BenhAn" />
+    <EntitySet Name="BenhAn_LoaiXetNghiem" EntityType="Self.BenhAn_LoaiXetNghiem" />
+    <EntitySet Name="BenhAn_TapTin" EntityType="Self.BenhAn_TapTin" />
+    <EntitySet Name="LoaiXetNghiems" EntityType="Self.LoaiXetNghiem" />
+    <EntitySet Name="TapTins" EntityType="Self.TapTin" />
+    <EntitySet Name="ThangDoiChieux" EntityType="Self.ThangDoiChieu" />
+    <EntitySet Name="ThanhViens" EntityType="Self.ThanhVien" />
+    <AssociationSet Name="FK_BenhAn_LoaiXetNghiem_BenhAn" Association="Self.FK_BenhAn_LoaiXetNghiem_BenhAn">
+      <End Role="BenhAn" EntitySet="BenhAns" />
+      <End Role="BenhAn_LoaiXetNghiem" EntitySet="BenhAn_LoaiXetNghiem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BenhAn_TapTin_BenhAn" Association="Self.FK_BenhAn_TapTin_BenhAn">
+      <End Role="BenhAn" EntitySet="BenhAns" />
+      <End Role="BenhAn_TapTin" EntitySet="BenhAn_TapTin" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BenhAn_ThanhVien" Association="Self.FK_BenhAn_ThanhVien">
+      <End Role="ThanhVien" EntitySet="ThanhViens" />
+      <End Role="BenhAn" EntitySet="BenhAns" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BenhAn_LoaiXetNghiem_LoaiXetNghiem" Association="Self.FK_BenhAn_LoaiXetNghiem_LoaiXetNghiem">
+      <End Role="LoaiXetNghiem" EntitySet="LoaiXetNghiems" />
+      <End Role="BenhAn_LoaiXetNghiem" EntitySet="BenhAn_LoaiXetNghiem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BenhAn_TapTin_TapTin" Association="Self.FK_BenhAn_TapTin_TapTin">
+      <End Role="TapTin" EntitySet="TapTins" />
+      <End Role="BenhAn_TapTin" EntitySet="BenhAn_TapTin" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ThangDoiChieu_LoaiXetNghiem" Association="Self.FK_ThangDoiChieu_LoaiXetNghiem">
+      <End Role="LoaiXetNghiem" EntitySet="LoaiXetNghiems" />
+      <End Role="ThangDoiChieu" EntitySet="ThangDoiChieux" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

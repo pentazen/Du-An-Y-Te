@@ -1,0 +1,420 @@
+﻿
+@{
+    ViewBag.Title = "Cập Nhật Thông Tin Sức Khỏe";
+}
+
+@Html.Partial("Partial/_breadcrum")
+@model Service.EntityModel.BenhAn
+<style>
+    #sticker, #sticker1 {
+        height: 150px;
+        background-color: red;
+        padding: 10px;
+        width: 282px;
+    }
+</style>
+
+<style>
+    .danhsachtaptin a {
+        color: black;
+    }
+
+        .danhsachtaptin a:hover {
+            color: blue;
+        }
+
+    .danhsachtaptin button {
+        display: inline-block;
+        min-width: 10px;
+        padding: 3px 7px;
+        /* font-size: 12px; */
+        font-weight: bold;
+        line-height: 1;
+    }
+</style>
+
+
+
+
+
+<div class="row" style="">
+    <div class="col-lg-2">
+        @*<div id="sticker1">
+            <p>This is the sticky thingy that is really cool.</p>
+        </div>*@
+
+
+
+
+
+
+
+
+    </div>
+    <div class="col-lg-8">
+        <div class="col-lg-12"><h2 class="tittle">Hãy Cập Nhật Thông Tin Hồ Sơ Của Bạn</h2></div>
+
+        <div class="col-lg-12" style="padding:15px;">
+
+
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a data-toggle="tab" href="#tab-@Model.MauBenhAn.TenKhongDau">@Model.MauBenhAn.TenMauBenhAn</a>
+                </li>
+
+
+
+
+
+
+
+            </ul>
+
+            <div class="tab-content" id="CapNhatThongTinSucKhoe">
+
+                <div id="tab-@Model.MauBenhAn.TenKhongDau" class="tab-pane active">
+                    <form class="row" id="@Model.MauBenhAn.TenKhongDau" data-idMauBenhAn="@Model.id_MauBenhAn">
+                        @if (Model.MauBenhAn.MauBenhAn_LoaiXetNghiem.Count > 0)
+                        {
+                            Model.MauBenhAn.MauBenhAn_LoaiXetNghiem = Model.MauBenhAn.MauBenhAn_LoaiXetNghiem.OrderBy(loaiXN => loaiXN.ThuTu).ToList();
+                            <div class="col-lg-6">
+                                <div class="form-horizontal">
+                                    @for (int j = 0; j < Model.MauBenhAn.MauBenhAn_LoaiXetNghiem.Count / 2; j++)
+                                    {
+                                        var loaiXetNghiem = Model.MauBenhAn.MauBenhAn_LoaiXetNghiem.ToList()[j].LoaiXetNghiem;
+                                        var benhAn_LoaiXetNghiem = Model.BenhAn_LoaiXetNghiem.ToList().FirstOrDefault(ba_lxn => ba_lxn.id_LoaiXetNghiem == loaiXetNghiem.id);
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-5">@loaiXetNghiem.TenHienThi</label>
+                                            <div class="col-sm-7">
+                                                @if (!string.IsNullOrEmpty(loaiXetNghiem.DonVi) && loaiXetNghiem.DonVi.Split(',').Count() > 0)
+                                                {
+                                                    <input data-idLoaiXetNghiem="@loaiXetNghiem.id" type="number" step="any" class="form-control" id="@(Model.MauBenhAn.TenKhongDau+"_"+loaiXetNghiem.id.ToString())" name="@(Model.MauBenhAn.TenKhongDau+"_"+loaiXetNghiem.id.ToString())"
+                                                           placeholder="VD : 0.96" style="width:auto;display:inline-block;" value="@{
+                                                                if(benhAn_LoaiXetNghiem!=null)
+                                                                {<text>@benhAn_LoaiXetNghiem.GiaTri</text>}
+                                                             }">
+                                                    <select class="form-control" id="@(Model.MauBenhAn.TenKhongDau+"_"+loaiXetNghiem.id.ToString())_DonVi" style="width:auto;display:inline-block;">
+                                                        @for (int z = 0; z < loaiXetNghiem.DonVi.Split(',').Count(); z++)
+                                                        {
+                                                            var donViHienTai = loaiXetNghiem.DonVi.Split(',')[z];
+                                                            <option value="@donViHienTai" @{
+                                                                if(benhAn_LoaiXetNghiem!=null&&benhAn_LoaiXetNghiem.DonVi==donViHienTai)
+                                                                {<text>selected</text>}
+                                                             }>
+                                                                @donViHienTai
+                                                        </option>
+                                                        }
+
+                                                    </select>
+                                                }
+                                                else
+                                                {
+                                                    <input data-idLoaiXetNghiem="@loaiXetNghiem.id" type="text" class="form-control" 
+                                                           id="@(Model.MauBenhAn.TenKhongDau+"_"+loaiXetNghiem.id.ToString())" 
+                                                           name="@(Model.MauBenhAn.TenKhongDau+"_"+loaiXetNghiem.id.ToString())" 
+                                                           value="@{
+                                                        if (benhAn_LoaiXetNghiem != null)
+                                                        {<text>@benhAn_LoaiXetNghiem.GiaTri</text>}
+                                                    }">
+                                                }
+
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-horizontal">
+                                    @for (int j = Model.MauBenhAn.MauBenhAn_LoaiXetNghiem.Count / 2; j < Model.MauBenhAn.MauBenhAn_LoaiXetNghiem.Count; j++)
+                                    {
+                                        var loaiXetNghiem = Model.MauBenhAn.MauBenhAn_LoaiXetNghiem.ToList()[j].LoaiXetNghiem;
+                                        var benhAn_LoaiXetNghiem = Model.BenhAn_LoaiXetNghiem.ToList().FirstOrDefault(ba_lxn => ba_lxn.id_LoaiXetNghiem == loaiXetNghiem.id);
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-5">@loaiXetNghiem.TenHienThi</label>
+                                            <div class="col-sm-7">
+                                                @if (!string.IsNullOrEmpty(loaiXetNghiem.DonVi) && loaiXetNghiem.DonVi.Split(',').Count() > 0)
+                                                {
+                                                    
+                                                    <input data-idLoaiXetNghiem="@loaiXetNghiem.id" type="number" step="any" class="form-control" id="@(Model.MauBenhAn.TenKhongDau+"_"+loaiXetNghiem.id.ToString())" placeholder="VD : 0.96" style="width:auto;display:inline-block;"  value="@{
+                                                                if(benhAn_LoaiXetNghiem!=null)
+                                                                {<text>@benhAn_LoaiXetNghiem.GiaTri</text>}
+                                                             }">
+                                                    <select class="form-control" id="@(Model.MauBenhAn.TenKhongDau+"_"+loaiXetNghiem.id.ToString())_DonVi" style="width:auto;display:inline-block;">
+                                                        @for (int z = 0; z < loaiXetNghiem.DonVi.Split(',').Count(); z++)
+                                                        {
+                                                            var donViHienTai = loaiXetNghiem.DonVi.Split(',')[z];
+                                                            <option value="@donViHienTai" @{
+                                                                if(benhAn_LoaiXetNghiem!=null&& benhAn_LoaiXetNghiem.DonVi==donViHienTai)
+                                                                {<text>selected</text>}
+                                                             }>@donViHienTai</option>
+                                                        }
+
+                                                    </select>
+                                                }
+                                                else
+                                                {
+                                                    <input data-idLoaiXetNghiem="@loaiXetNghiem.id" type="text" class="form-control" id="@(Model.MauBenhAn.TenKhongDau+"_"+loaiXetNghiem.id.ToString())"
+                                                    value="@{
+                                                        if (benhAn_LoaiXetNghiem != null)
+                                                        {<text>@benhAn_LoaiXetNghiem.GiaTri</text>}
+                                                    }">
+                                                }
+
+                                            </div>
+                                        </div>
+                                    }
+
+
+                                </div>
+                            </div>
+                        }
+
+                        <div class="col-lg-12">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="text_id" class="control-label col-sm-2">File Đính Kèm</label>
+                                    <div class="col-sm-10">
+                                        <input type="file" class="form-control" id="@(Model.MauBenhAn.TenKhongDau+"_File")" name="@(Model.MauBenhAn.TenKhongDau+"_File")" multiple>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="text_id" class="control-label col-sm-2">Kết quả</label>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control" rows="5" id="@(Model.MauBenhAn.TenKhongDau+"_KetQua")" placeholder="Bất cứ thông tin nào không có trong các trường dữ liệu xin hãy liệt kê ở đây một cách chi tiết">@Model.KetQua</textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="text_id" class="control-label col-sm-2">Ghi Chú</label>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control" rows="5" id="@(Model.MauBenhAn.TenKhongDau+"_GhiChu")" placeholder="Bất cứ điều gì trong suốt quá trình xét nghiệm mà bạn thắc mắc hoặc không hài lòng">@Model.GhiChu</textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="text_id" class="control-label col-sm-2">Kết Quả Ngày</label>
+                                    <div class="col-sm-10">
+                                        <input type="date" class="form-control" id="@(Model.MauBenhAn.TenKhongDau+"_KetQuaNgay")" name="HuyetHoc_KetQuaNgay" required value="@DateTime.Parse(Model.KetQuaNgay.ToString()).ToString("yyyy-MM-dd")">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="text_id" class="control-label col-sm-2"></label>
+                                    <div class="col-sm-10">
+                                        <button type="submit" class="btn btn-primary">Cập nhật</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-lg-12">
+            <h2 class="tittle">Danh Sách File Đính Kèm</h2>
+            <ul class="danhsachtaptin list-group">
+                @foreach (var item in Model.BenhAn_TapTin)
+                {
+                    <li id="@item.id_TapTin" class="list-group-item"><a target="_blank" href="@Url.Action("GetFileById", "Health",new {id=item.id_TapTin })"> @item.TapTin.TenTapTin </a><button type="button" onclick="xoaFile(@item.id_TapTin)" class="btn btn-danger pull-right">Xóa</button></li>
+                }
+                @*<li class="list-group-item">New <span class="badge">12</span></li>
+                    <li class="list-group-item">Deleted <span class="badge">5</span></li>
+                    <li class="list-group-item">Warnings <span class="badge">3</span></li>*@
+            </ul>
+
+        </div>
+    </div>
+    @*<div class="col-lg-2">
+        <div id="sticker">
+            <p>This is the sticky thingy that is really cool.</p>
+        </div>
+
+    </div>*@
+</div>
+
+<input type="hidden" name="idBenhAn" id="idBenhAn" value="@Model.id" />
+
+
+
+<script>
+    var check1 = false;
+    var check2 = false;
+    var check3 = false;
+    var check4 = false;
+    function CheckFile(name) {
+        var fileUpload = $("#" + name);
+        if (parseInt(fileUpload.get(0).files.length) > 2) {
+            alert("Chỉ được đính kèm 2 File");
+            return false;
+        }
+        if (typeof FileReader !== "undefined") {
+            var size = 0;
+            var fileInput = fileUpload.get(0).files;
+            if (typeof fileInput[0] !== "undefined") {
+                console.log(fileInput[0])
+                for (var i = 0; i < fileInput.length; i++) {
+                    size += fileInput[0].size;
+                }
+            }
+            // check file size
+            if (size !== 0) {
+                if ((size / 1024 / 1024) > 3) {
+                    console.log(size)
+                    alert("Tổng độ lớn của các File không được lớn hơn 3MB");
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+    $("#@Model.MauBenhAn.TenKhongDau").submit(function (event) {
+
+        /* stop form from submitting normally */
+        event.preventDefault();
+        if (!CheckFile("@(Model.MauBenhAn.TenKhongDau+"_File")")) {
+            return;
+    }
+         CapNhat@(Model.MauBenhAn.TenKhongDau)();
+    });
+    function CapNhat@(Model.MauBenhAn.TenKhongDau)() {
+        var url = document.location.origin + "/Health/CapNhatBenhAn";
+        var FormSend = new FormData();
+        var listInput = $("#@(Model.MauBenhAn.TenKhongDau) input[type=text],#@(Model.MauBenhAn.TenKhongDau) input[type=number]");
+        let danhsachLoaiXetNghiem = [];
+
+        for (var i = 0; i < listInput.length; i++) {
+            let loaiXetNghiem = {};
+            loaiXetNghiem.GiaTri = listInput[i].value;
+            loaiXetNghiem.DonVi = $("#" + listInput[i].id + "_DonVi").val() ? $("#" + listInput[i].id + "_DonVi").val() : "";
+            loaiXetNghiem.id_LoaiXetNghiem = $(listInput[i]).data().idloaixetnghiem;
+            danhsachLoaiXetNghiem.push(loaiXetNghiem);
+        }
+
+        var BenhAn = {
+            "id": $("#idBenhAn").val(),
+            "id_MauBenhAn": $("#@(Model.MauBenhAn.TenKhongDau)").data().idmaubenhan,
+            "NoiKham": "",
+            "BacSiKham": "",
+            "KetQua": $('#@(Model.MauBenhAn.TenKhongDau)_KetQua').val(),
+            "GhiChu": $('#@(Model.MauBenhAn.TenKhongDau)_GhiChu').val(),
+            "KetQuaNgay": $('#@(Model.MauBenhAn.TenKhongDau)_KetQuaNgay').val()
+        }
+
+        FormSend.append("ModelbenhAn", JSON.stringify(BenhAn));
+        FormSend.append("dsloai", JSON.stringify(danhsachLoaiXetNghiem));
+        FormSend.append("idBenhAn", $("#idBenhAn").val());
+
+
+        jQuery.each(jQuery('#@(Model.MauBenhAn.TenKhongDau)_File')[0].files, function (i, file) {
+            FormSend.append('file-' + i, file);
+        });
+
+
+
+        console.log(BenhAn)
+        console.log(danhsachLoaiXetNghiem)
+        console.log($("#idBenhAn").val())
+        //return;
+        FormSend.append("@(Model.MauBenhAn.TenKhongDau)_KetQuaNgay", $('#@(Model.MauBenhAn.TenKhongDau)_KetQuaNgay').val());
+        $.ajax({
+            method: "POST",
+            url: url,
+            data: FormSend,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+            },
+            error: function (xhr) {
+                console.log(xhr);
+                return false;
+            }
+        })
+           .done(function (data) {
+               if (typeof data != "object") {
+                   if (data == true || data == "True") {
+
+                       swal({
+                           title: "Thành Công",
+                           text: "Cập nhật @(Model.MauBenhAn.TenMauBenhAn) thành công!",
+                           type: "success",
+                           showCancelButton: false,
+                           closeOnConfirm: true,
+                       }, function () {
+                           //$('#@(Model.MauBenhAn.TenKhongDau)')[0].reset();
+                       })
+
+                   }
+                   else {
+                       return swal("Cập nhật thất bại!", "", "error");
+                   }
+               }
+               else {
+                   if (data.KetQua == true || data.KetQua == "True") {
+
+                       swal({
+                           title: "Cập nhật @(Model.MauBenhAn.TenMauBenhAn) thành công!",
+                           text: data.NoiDung,
+                           type: "success",
+                           showCancelButton: false,
+                           closeOnConfirm: true,
+                       }, function () {
+                           $('#@(Model.MauBenhAn.TenKhongDau)')[0].reset();
+                       })
+
+                   }
+                   else {
+                       return swal("Cập nhật thất bại!", "", "error");
+                   }
+
+               }
+
+           });
+    }
+</script>
+
+
+@section scripts{
+    <script type="text/javascript" src="~/js/jquery.sticky.js"></script>
+    <script>
+        $(window).load(function () {
+            $("#sticker").sticky({ topSpacing: 10 });
+            $("#sticker1").sticky({ topSpacing: 10 });
+        });
+    </script>
+    <script>
+        function xoaFile(idFile) {
+            var url = document.location.origin + "/Health/XoaFile";
+            var result = confirm("Bạn có muốn xóa?");
+            if (result) {
+                $.ajax({
+                    method: "GET",
+                    url: url,
+                    data: { idBenhAn: $('#idBenhAn').val(), idTapTin: idFile },
+                    //contentType: false,
+                    //processData: false,
+                    success: function (data) {
+                    },
+                    error: function (xhr) {
+                        console.log(xhr);
+                        return false;
+                    }
+                })
+                .done(function (data) {
+                    console.log(data)
+                    if (data == true || data == "True") {
+                        alert("Xóa thành công!");
+                        $("li#" + idFile).remove();
+
+                    }
+                    else {
+                    }
+
+                });
+            }
+
+        }
+    </script>
+}
+
