@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Blog_Guitar.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 using Models = Service.EntityModel;
 namespace Service
 {
-    public class BenhAn_Service : IService
+    public class BenhAn_Service : IService<Models.BenhAn>
     {
         public Models.BenhAn CapNhatBenhAnChoBenhNhan(Models.BenhAn benhAn)
         {
@@ -21,18 +22,18 @@ namespace Service
             //    string km = ex.Message;
             //    return null;
             //}
-            DuAnYTeEntitiesFramework.BenhAns.Add(benhAn);
-            DuAnYTeEntitiesFramework.SaveChanges();
+            DbContext.BenhAns.Add(benhAn);
+            DbContext.SaveChanges();
             return benhAn;
         }
         public List<Models.BenhAn> LayDanhSachBenhAnTheoIdThangVien(int idThanhVien)
         {
-            List<Models.BenhAn> DanhSachBenhAn = (from item in DuAnYTeEntitiesFramework.BenhAns.AsEnumerable()
+            List<Models.BenhAn> DanhSachBenhAn = (from item in DbContext.BenhAns.AsEnumerable()
                                                   where item.id_ThanhVien_SoHuu == idThanhVien
                                                   select item).ToList();
             //foreach (Models.BenhAn item in DanhSachBenhAn)
             //{
-            //    item.BenhAn_LoaiXetNghiem = (from BenhAnLoaiXetNghiemItem in DuAnYTeEntitiesFramework.BenhAn_LoaiXetNghiem.AsEnumerable()
+            //    item.BenhAn_LoaiXetNghiem = (from BenhAnLoaiXetNghiemItem in DbContext.BenhAn_LoaiXetNghiem.AsEnumerable()
             //                                where BenhAnLoaiXetNghiemItem.id_BenhAn == item.id
             //                                select BenhAnLoaiXetNghiemItem).ToList();
             //    DuLieuTraVe.Add(item);
@@ -41,12 +42,12 @@ namespace Service
         }
         public Models.BenhAn LayBenhAnTheoIdThanhVienVaIdBenhAn(int idThanhVien, int idBenhAn)
         {
-            Models.BenhAn DanhSachBenhAn = (from item in DuAnYTeEntitiesFramework.BenhAns.AsEnumerable()
+            Models.BenhAn DanhSachBenhAn = (from item in DbContext.BenhAns.AsEnumerable()
                                                   where item.id_ThanhVien_SoHuu == idThanhVien && item.TrangThai!=false
                                                   select item).ToList().FirstOrDefault(ba=>ba.id== idBenhAn);
             //foreach (Models.BenhAn item in DanhSachBenhAn)
             //{
-            //    item.BenhAn_LoaiXetNghiem = (from BenhAnLoaiXetNghiemItem in DuAnYTeEntitiesFramework.BenhAn_LoaiXetNghiem.AsEnumerable()
+            //    item.BenhAn_LoaiXetNghiem = (from BenhAnLoaiXetNghiemItem in DbContext.BenhAn_LoaiXetNghiem.AsEnumerable()
             //                                where BenhAnLoaiXetNghiemItem.id_BenhAn == item.id
             //                                select BenhAnLoaiXetNghiemItem).ToList();
             //    DuLieuTraVe.Add(item);
@@ -64,11 +65,11 @@ namespace Service
             {
                 benhan.BenhAn_LoaiXetNghiem.FirstOrDefault(lxn => lxn.id_LoaiXetNghiem == dsLoaiXetNghiem[i].id_LoaiXetNghiem).GiaTri = dsLoaiXetNghiem[i].GiaTri;
             }
-            DuAnYTeEntitiesFramework.BenhAns.Attach(benhan);
-            DuAnYTeEntitiesFramework.Entry(benhan).State = System.Data.Entity.EntityState.Modified;
+            DbContext.BenhAns.Attach(benhan);
+            DbContext.Entry(benhan).State = System.Data.Entity.EntityState.Modified;
 
-            //DuAnYTeEntitiesFramework.ThanhViens.Change
-            DuAnYTeEntitiesFramework.SaveChanges();
+            //DbContext.ThanhViens.Change
+            DbContext.SaveChanges();
             return true;
         }
     }

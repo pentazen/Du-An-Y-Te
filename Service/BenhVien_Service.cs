@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 #region Thư viện
 using Service.EntityModel;
 using System.Security.Cryptography;
+using Blog_Guitar.Service;
 #endregion
 namespace Service
 {
-   public class BenhVien_Service : IService
+   public class BenhVien_Service : IService<BenhAn>
     {
         public IList<BenhVien> GetAll()
         {
-            return DuAnYTeEntitiesFramework.BenhViens.Where(tv => tv.TrangThai != false).ToList();
+            return DbContext.BenhViens.Where(tv => tv.TrangThai != false).ToList();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Blog_Guitar.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,19 +7,19 @@ using System.Threading.Tasks;
 using Models = Service.EntityModel;
 namespace Service
 {
-    public class ChuDe_Service : IService
+    public class ChuDe_Service : IService<Models.ChuDe>
     {
         public List<Models.ChuDe> GetAll()
         {
-            return DuAnYTeEntitiesFramework.ChuDes.Where(cd=>cd.TrangThai==true).ToList();
+            return DbContext.ChuDes.Where(cd=>cd.TrangThai==true).ToList();
         }
 
         public bool DeleteById(int id)
         {
             try
             {
-                DuAnYTeEntitiesFramework.ChuDes.FirstOrDefault(tt => tt.id == id).TrangThai = false;
-                DuAnYTeEntitiesFramework.SaveChanges();
+                DbContext.ChuDes.FirstOrDefault(tt => tt.id == id).TrangThai = false;
+                DbContext.SaveChanges();
                 return true;
             }
             catch
@@ -35,8 +36,8 @@ namespace Service
                 chude.NgayTao = DateTime.Now;
                 chude.TrangThai = true;
 
-                DuAnYTeEntitiesFramework.ChuDes.Add(chude);
-                DuAnYTeEntitiesFramework.SaveChanges();
+                DbContext.ChuDes.Add(chude);
+                DbContext.SaveChanges();
                 return true;
             }
             catch

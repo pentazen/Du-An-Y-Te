@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Blog_Guitar.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +7,11 @@ using System.Threading.Tasks;
 using Models = Service.EntityModel;
 namespace Service
 {
-    public class BenhAn_LoaiXetNghiem_Service : IService
+    public class BenhAn_LoaiXetNghiem_Service : IService<Models.BenhAn_LoaiXetNghiem>
     {
         public List<Models.BenhAn_LoaiXetNghiem> CapNhatLoaiXetNghiemChoBenhAn(Models.BenhAn benhAn, List<Models.BenhAn_LoaiXetNghiem> DanhSachBenhAnLoaiXetNghiem)
         {
-            Models.BenhAn benhAnCapNhat = DuAnYTeEntitiesFramework.BenhAns.FirstOrDefault(ba => ba.id == benhAn.id);
+            Models.BenhAn benhAnCapNhat = DbContext.BenhAns.FirstOrDefault(ba => ba.id == benhAn.id);
 
             //List<Models.BenhAn_LoaiXetNghiem> KetQua = new List<Models.BenhAn_LoaiXetNghiem>();
             foreach (Models.BenhAn_LoaiXetNghiem BenhAnLoaiXetNghiem in DanhSachBenhAnLoaiXetNghiem)
@@ -36,7 +37,7 @@ namespace Service
 
                 }
             }
-            DuAnYTeEntitiesFramework.SaveChanges();
+            DbContext.SaveChanges();
             return DanhSachBenhAnLoaiXetNghiem;
         }
         public bool CheckLoaiXetNghiemInBenhAnLoaiXetNghiem(Models.BenhAn benhAn, Models.BenhAn_LoaiXetNghiem ba_lxn)
@@ -54,7 +55,7 @@ namespace Service
         }
         public Models.BenhAn_LoaiXetNghiem LayGiaTriTheoIdBenhAnIdLoaiXetNghiem(int idBenhAn, int idLoaiXetNghiem)
         {
-            return DuAnYTeEntitiesFramework.BenhAn_LoaiXetNghiem.AsEnumerable().FirstOrDefault(x => x.id_LoaiXetNghiem == idLoaiXetNghiem && x.id_BenhAn == idBenhAn);
+            return DbContext.BenhAn_LoaiXetNghiem.AsEnumerable().FirstOrDefault(x => x.id_LoaiXetNghiem == idLoaiXetNghiem && x.id_BenhAn == idBenhAn);
         }
     }
 }

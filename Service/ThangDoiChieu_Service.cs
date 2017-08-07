@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Blog_Guitar.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,34 +7,34 @@ using System.Threading.Tasks;
 using Models = Service.EntityModel;
 namespace Service
 {
-    public class ThangDoiChieu_Service : IService
+    public class ThangDoiChieu_Service : IService<Models.ThangDoiChieu>
     {
         public List<Models.ThangDoiChieu> GetAll()
         {
-            return DuAnYTeEntitiesFramework.ThangDoiChieux.AsEnumerable().Where(tdc => tdc.TrangThai == true).ToList() ;
+            return DbContext.ThangDoiChieux.AsEnumerable().Where(tdc => tdc.TrangThai == true).ToList() ;
         }
         public Models.ThangDoiChieu GetById(int id)
         {
-            return DuAnYTeEntitiesFramework.ThangDoiChieux.FirstOrDefault(tdc => tdc.TrangThai == true&&tdc.id==id);
+            return DbContext.ThangDoiChieux.FirstOrDefault(tdc => tdc.TrangThai == true&&tdc.id==id);
         }
         public Models.ThangDoiChieu LayTheoIdLoaiXetNghiem(int id)
         {
-            return DuAnYTeEntitiesFramework.ThangDoiChieux.ToList().FirstOrDefault(x=>x.id_LoaiXetNghiem==id);
+            return DbContext.ThangDoiChieux.ToList().FirstOrDefault(x=>x.id_LoaiXetNghiem==id);
         }
         public Models.ThangDoiChieu CreateByModel(Models.ThangDoiChieu ThangDoiChieu)
         {
             ThangDoiChieu.TrangThai = true;
             ThangDoiChieu.NgayTao = DateTime.Now;
-            DuAnYTeEntitiesFramework.ThangDoiChieux.Add(ThangDoiChieu);
-            DuAnYTeEntitiesFramework.SaveChanges();
+            DbContext.ThangDoiChieux.Add(ThangDoiChieu);
+            DbContext.SaveChanges();
             return ThangDoiChieu;
         }
         public bool DeleteById(int id)
         {
             try
             {
-                DuAnYTeEntitiesFramework.ThangDoiChieux.FirstOrDefault(tt => tt.id == id).TrangThai = false;
-                DuAnYTeEntitiesFramework.SaveChanges();
+                DbContext.ThangDoiChieux.FirstOrDefault(tt => tt.id == id).TrangThai = false;
+                DbContext.SaveChanges();
                 return true;
             }
             catch
@@ -44,7 +45,7 @@ namespace Service
         }
         public Models.ThangDoiChieu UpdateByModel(Models.ThangDoiChieu thangdoichieu,Models.LoaiXetNghiem loaixetnghiem)
         {
-            Models.ThangDoiChieu thangdoichieu_old = DuAnYTeEntitiesFramework.ThangDoiChieux.FirstOrDefault(tdc => tdc.id == thangdoichieu.id);
+            Models.ThangDoiChieu thangdoichieu_old = DbContext.ThangDoiChieux.FirstOrDefault(tdc => tdc.id == thangdoichieu.id);
             thangdoichieu_old.CanDuoi = thangdoichieu.CanDuoi;
             thangdoichieu_old.CanTren = thangdoichieu.CanTren;
             thangdoichieu_old.DonVi = thangdoichieu.DonVi;
@@ -53,13 +54,13 @@ namespace Service
             thangdoichieu_old.ChuanDoanBenhKhiVuotQuaCanTren = thangdoichieu.ChuanDoanBenhKhiVuotQuaCanTren;
             thangdoichieu_old.LoiKhuyenVuotQuaCanDuoi = thangdoichieu.LoiKhuyenVuotQuaCanDuoi;
             thangdoichieu_old.LoiKhuyenVuotQuaCanTren = thangdoichieu.LoiKhuyenVuotQuaCanTren;
-            DuAnYTeEntitiesFramework.SaveChanges();
+            DbContext.SaveChanges();
 
-            Models.LoaiXetNghiem loaixetnghiem_old = DuAnYTeEntitiesFramework.LoaiXetNghiems.FirstOrDefault(tdc => tdc.id == thangdoichieu_old.id_LoaiXetNghiem);
+            Models.LoaiXetNghiem loaixetnghiem_old = DbContext.LoaiXetNghiems.FirstOrDefault(tdc => tdc.id == thangdoichieu_old.id_LoaiXetNghiem);
             loaixetnghiem_old.TenLoaiXetNghiem = loaixetnghiem.TenLoaiXetNghiem;
             loaixetnghiem_old.TenHienThi = loaixetnghiem.TenHienThi;
             loaixetnghiem_old.GhiChu = loaixetnghiem.GhiChu;
-            DuAnYTeEntitiesFramework.SaveChanges();
+            DbContext.SaveChanges();
             return thangdoichieu_old;
         }
     }

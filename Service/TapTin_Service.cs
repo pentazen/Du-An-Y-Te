@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 using Service.EntityModel;
 using System.IO;
 using System.Reflection;
+using Blog_Guitar.Service;
 #endregion
 namespace Service
 {
-    public class TapTin_Service: IService
+    public class TapTin_Service: IService<TapTin>
     {
         public static string DuongDanLuuTapTin = @"D:\LuuTapTin";
         public object LuuTapTin(Stream FileStream, string fileName, string contentType, int fileLength)
@@ -44,8 +45,8 @@ namespace Service
             taptin.KichThuoc = fileLength;
             taptin.NgayTao = DateTime.Now;
             taptin.DuongDan = Path.Combine(path, fileName);
-            DuAnYTeEntitiesFramework.TapTins.Add(taptin);
-            DuAnYTeEntitiesFramework.SaveChanges();
+            DbContext.TapTins.Add(taptin);
+            DbContext.SaveChanges();
             return taptin.id;
         }
         public object LuuTapTinTraVeDuongDan(Stream FileStream, string fileName, string contentType, int fileLength)
@@ -78,14 +79,14 @@ namespace Service
             taptin.KichThuoc = fileLength;
             taptin.NgayTao = DateTime.Now;
             taptin.DuongDan = Path.Combine(path, fileName);
-            DuAnYTeEntitiesFramework.TapTins.Add(taptin);
-            DuAnYTeEntitiesFramework.SaveChanges();
+            DbContext.TapTins.Add(taptin);
+            DbContext.SaveChanges();
             return taptin.DuongDan;
         }
 
         public TapTin GetById(int id)
         {
-           return DuAnYTeEntitiesFramework.TapTins.FirstOrDefault(tt => tt.id == id);
+           return DbContext.TapTins.FirstOrDefault(tt => tt.id == id);
         }
 
         //public object GetStreamByURL(string URL)

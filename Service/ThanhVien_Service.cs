@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 #region Thư viện
 using Service.EntityModel;
 using System.Security.Cryptography;
+using Blog_Guitar.Service;
 #endregion
 
 
 namespace Service
 {
-    public class ThanhVien_Service : IService
+    public class ThanhVien_Service : IService<ThanhVien>
     {
         public IList<ThanhVien> GetAll()
         {
@@ -22,22 +23,22 @@ namespace Service
             //    //DangKyTaiKhoan("taikhoan" + i.ToString(), "email" + i.ToString() + "@gmail.com", "123456" + i.ToString());
             //    if (i % 2 == 0)
             //    {
-            //        var tam = DuAnYTeEntitiesFramework.ThanhViens.FirstOrDefault(tv => tv.id == i);
+            //        var tam = DbContext.ThanhViens.FirstOrDefault(tv => tv.id == i);
             //        if (tam != null)
             //            tam.id_LoaiThanhVien = 2;
 
             //    }
             //}
-            //foreach (var item in DuAnYTeEntitiesFramework.ThanhViens)
+            //foreach (var item in DbContext.ThanhViens)
             //{
             //    item.TrangThai = true;
             //}
-            //DuAnYTeEntitiesFramework.SaveChanges();
-            return DuAnYTeEntitiesFramework.ThanhViens.Where(tv => tv.TrangThai != false).ToList();
+            //DbContext.SaveChanges();
+            return DbContext.ThanhViens.Where(tv => tv.TrangThai != false).ToList();
         }
         public ThanhVien GetByTaiKhoan(string taikhoan)
         {
-            return DuAnYTeEntitiesFramework.ThanhViens.AsEnumerable().FirstOrDefault(tv => tv.TaiKhoan == taikhoan);
+            return DbContext.ThanhViens.AsEnumerable().FirstOrDefault(tv => tv.TaiKhoan == taikhoan);
         }
         public object TaoTaiKhoan(ThanhVien thanhvien)
         {
@@ -51,7 +52,7 @@ namespace Service
                     {
                         ma = CreateCapcha();
                     }
-                    while (DuAnYTeEntitiesFramework.ThanhViens.FirstOrDefault(user => user.MaKichHoat == ma) != null);
+                    while (DbContext.ThanhViens.FirstOrDefault(user => user.MaKichHoat == ma) != null);
                     thanhvien.MaKichHoat = ma;
                     thanhvien.TrangThai = true;
                     thanhvien.NgayTao = DateTime.Now;
@@ -60,8 +61,8 @@ namespace Service
                         string hash = GetMd5Hash(md5Hash, thanhvien.MatKhau);
                         thanhvien.MatKhauMaHoa = hash;
                     }
-                    DuAnYTeEntitiesFramework.ThanhViens.Add(thanhvien);
-                    DuAnYTeEntitiesFramework.SaveChanges();
+                    DbContext.ThanhViens.Add(thanhvien);
+                    DbContext.SaveChanges();
                     return thanhvien;
                 }
                 return false;
@@ -77,7 +78,7 @@ namespace Service
             using (MD5 md5Hash = MD5.Create())
             {
                 string hash = GetMd5Hash(md5Hash, matkhau);
-                return DuAnYTeEntitiesFramework.ThanhViens.AsEnumerable().FirstOrDefault(tv => tv.TaiKhoan == taikhoan && tv.MatKhau == matkhau &&tv.MatKhauMaHoa== hash && tv.TrangThai == true);
+                return DbContext.ThanhViens.AsEnumerable().FirstOrDefault(tv => tv.TaiKhoan == taikhoan && tv.MatKhau == matkhau &&tv.MatKhauMaHoa== hash && tv.TrangThai == true);
             }
             
         }
@@ -86,17 +87,17 @@ namespace Service
             using (MD5 md5Hash = MD5.Create())
             {
                 string hash = GetMd5Hash(md5Hash, matkhau);
-                return DuAnYTeEntitiesFramework.ThanhViens.AsEnumerable().FirstOrDefault(tv => tv.TaiKhoan == taikhoan && tv.MatKhau == matkhau&&tv.MatKhauMaHoa== hash && tv.TrangThai == true && tv.id_LoaiThanhVien != 4);
+                return DbContext.ThanhViens.AsEnumerable().FirstOrDefault(tv => tv.TaiKhoan == taikhoan && tv.MatKhau == matkhau&&tv.MatKhauMaHoa== hash && tv.TrangThai == true && tv.id_LoaiThanhVien != 4);
             }
         }
         public object KiemTraDangKy(string taikhoan, string email)
         {
-            ThanhVien Kiemtra = DuAnYTeEntitiesFramework.ThanhViens.AsEnumerable().FirstOrDefault(tv => tv.TaiKhoan == taikhoan || tv.Email == email);
+            ThanhVien Kiemtra = DbContext.ThanhViens.AsEnumerable().FirstOrDefault(tv => tv.TaiKhoan == taikhoan || tv.Email == email);
             if (Kiemtra != null)
             {
                 string TraVe = "";
-                bool ktTaiKhoan = (DuAnYTeEntitiesFramework.ThanhViens.AsEnumerable().FirstOrDefault(tv => tv.TaiKhoan == taikhoan) != null);
-                bool ktEmail = (DuAnYTeEntitiesFramework.ThanhViens.AsEnumerable().FirstOrDefault(tv => tv.Email == email) != null);
+                bool ktTaiKhoan = (DbContext.ThanhViens.AsEnumerable().FirstOrDefault(tv => tv.TaiKhoan == taikhoan) != null);
+                bool ktEmail = (DbContext.ThanhViens.AsEnumerable().FirstOrDefault(tv => tv.Email == email) != null);
                 if (ktTaiKhoan && ktEmail)
                 {
                     TraVe += "Tài khoản và Email này đã tồn tại!";
@@ -144,7 +145,7 @@ namespace Service
                     {
                         ma = CreateCapcha();
                     }
-                    while (DuAnYTeEntitiesFramework.ThanhViens.FirstOrDefault(user => user.MaKichHoat == ma) != null);
+                    while (DbContext.ThanhViens.FirstOrDefault(user => user.MaKichHoat == ma) != null);
                     tv.MaKichHoat = ma;
                     tv.id_LoaiThanhVien = loaiTaiKhoan;
                     tv.TrangThai = false;
@@ -154,8 +155,8 @@ namespace Service
                         string hash = GetMd5Hash(md5Hash, matkhau);
                         tv.MatKhauMaHoa = hash;
                     }
-                    DuAnYTeEntitiesFramework.ThanhViens.Add(tv);
-                    DuAnYTeEntitiesFramework.SaveChanges();
+                    DbContext.ThanhViens.Add(tv);
+                    DbContext.SaveChanges();
                     return tv;
                 }
                 return false;
@@ -168,14 +169,14 @@ namespace Service
         }
         public bool KichHoatTaiKhoan(int id, string code)
         {
-            ThanhVien user = DuAnYTeEntitiesFramework.ThanhViens.FirstOrDefault(tv => tv.id == id && tv.MaKichHoat == code && tv.TrangThai == false);
+            ThanhVien user = DbContext.ThanhViens.FirstOrDefault(tv => tv.id == id && tv.MaKichHoat == code && tv.TrangThai == false);
             if (user != null)
             {
                 user.TrangThai = true;
                 user.MaKichHoat = CreateCapcha();
-                DuAnYTeEntitiesFramework.ThanhViens.Attach(user);
-                DuAnYTeEntitiesFramework.Entry(user).State = System.Data.Entity.EntityState.Modified;
-                DuAnYTeEntitiesFramework.SaveChanges();
+                DbContext.ThanhViens.Attach(user);
+                DbContext.Entry(user).State = System.Data.Entity.EntityState.Modified;
+                DbContext.SaveChanges();
                 return true;
             }
             return false;
@@ -205,7 +206,7 @@ namespace Service
         {
             try
             {
-                ThanhVien thanhvien_old = DuAnYTeEntitiesFramework.ThanhViens.FirstOrDefault(tdc => tdc.id == thanhvien.id);
+                ThanhVien thanhvien_old = DbContext.ThanhViens.FirstOrDefault(tdc => tdc.id == thanhvien.id);
                 //thanhvien.TaiKhoan = thanhvien_old.TaiKhoan;
                 //thanhvien.MatKhau = thanhvien_old.MatKhau;
                 thanhvien_old.NgaySua = DateTime.Now;
@@ -224,10 +225,10 @@ namespace Service
                     thanhvien_old.Picture = thanhvien.Picture;
                 thanhvien_old.id_LoaiThanhVien = thanhvien.id_LoaiThanhVien;
                 thanhvien_old.TrangThai = true;
-                //DuAnYTeEntitiesFramework.ThanhViens.Attach(thanhvien_old);
+                //DbContext.ThanhViens.Attach(thanhvien_old);
 
-                DuAnYTeEntitiesFramework.Entry(thanhvien_old).State = System.Data.Entity.EntityState.Modified;
-                DuAnYTeEntitiesFramework.SaveChanges();
+                DbContext.Entry(thanhvien_old).State = System.Data.Entity.EntityState.Modified;
+                DbContext.SaveChanges();
                 //using (var dbCtx = new DuAnYTeEntities())
                 //{
                 //    //3. Mark entity as modified
@@ -237,8 +238,8 @@ namespace Service
                 //    dbCtx.SaveChanges();
                 //}
                 //thanhvien.NgaySua = DateTime.Now;
-                //DuAnYTeEntitiesFramework.ThanhViens.Attach(thanhvien);
-                //var entry = DuAnYTeEntitiesFramework.Entry(thanhvien);
+                //DbContext.ThanhViens.Attach(thanhvien);
+                //var entry = DbContext.Entry(thanhvien);
                 ////entry.Property(e => e.Email).IsModified = true;
                 //entry.Property(e => e.Ho).IsModified = true;
                 //entry.Property(e => e.Ten).IsModified = true;
@@ -253,7 +254,7 @@ namespace Service
                 //entry.Property(e => e.Email).IsModified = true;
 
                 //// other changed properties
-                //DuAnYTeEntitiesFramework.SaveChanges();
+                //DbContext.SaveChanges();
 
                 return true;
             }
@@ -264,15 +265,15 @@ namespace Service
         }
         public ThanhVien GetById(int id)
         {
-            return DuAnYTeEntitiesFramework.ThanhViens.FirstOrDefault(tt => tt.id == id);
+            return DbContext.ThanhViens.FirstOrDefault(tt => tt.id == id);
         }
 
         public bool DeleteById(int id)
         {
             try
             {
-                DuAnYTeEntitiesFramework.ThanhViens.FirstOrDefault(tt => tt.id == id).TrangThai = false;
-                DuAnYTeEntitiesFramework.SaveChanges();
+                DbContext.ThanhViens.FirstOrDefault(tt => tt.id == id).TrangThai = false;
+                DbContext.SaveChanges();
                 return true;
             }
             catch
@@ -284,13 +285,13 @@ namespace Service
 
         public ThanhVien KiemTraTonTaiBangTaiKhoan(string taikhoan)
         {
-            ThanhVien thanhvien = DuAnYTeEntitiesFramework.ThanhViens.AsEnumerable().FirstOrDefault(tv => tv.TaiKhoan == taikhoan);
+            ThanhVien thanhvien = DbContext.ThanhViens.AsEnumerable().FirstOrDefault(tv => tv.TaiKhoan == taikhoan);
             if(thanhvien!=null)
             {
                 thanhvien.TrangThai = false;
-                DuAnYTeEntitiesFramework.ThanhViens.Attach(thanhvien);
-                DuAnYTeEntitiesFramework.Entry(thanhvien).State = System.Data.Entity.EntityState.Modified;
-                DuAnYTeEntitiesFramework.SaveChanges();
+                DbContext.ThanhViens.Attach(thanhvien);
+                DbContext.Entry(thanhvien).State = System.Data.Entity.EntityState.Modified;
+                DbContext.SaveChanges();
                 return thanhvien;
             }
             return null;
@@ -299,7 +300,7 @@ namespace Service
 
         public bool VoHieuHoaTaiKhoan(string taikhoan)
         {
-            return (DuAnYTeEntitiesFramework.ThanhViens.AsEnumerable().FirstOrDefault(tv => tv.TaiKhoan == taikhoan) != null);
+            return (DbContext.ThanhViens.AsEnumerable().FirstOrDefault(tv => tv.TaiKhoan == taikhoan) != null);
         }
     }
 }

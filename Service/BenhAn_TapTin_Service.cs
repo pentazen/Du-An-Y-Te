@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Blog_Guitar.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using Models = Service.EntityModel;
 
 namespace Service
 {
-    public class BenhAn_TapTin_Service : IService
+    public class BenhAn_TapTin_Service : IService<Models.BenhAn_TapTin>
     {
         public bool CapNhatBenhAnTapTin(Models.BenhAn benhAn,List<int> dsTapTin)
         {
@@ -23,8 +24,8 @@ namespace Service
                     DSBenhAnTapTin.Add(BenhAnTapTIn);
                 }
 
-                DuAnYTeEntitiesFramework.BenhAn_TapTin.AddRange(DSBenhAnTapTin);
-                return (DuAnYTeEntitiesFramework.SaveChanges() > 0);
+                DbContext.BenhAn_TapTin.AddRange(DSBenhAnTapTin);
+                return (DbContext.SaveChanges() > 0);
             }
             catch(Exception ex)
             {
@@ -34,14 +35,14 @@ namespace Service
 
         public bool XoaTapTinBenhAn(int idBenhAn,int idTapTin)
         {
-            Models.BenhAn_TapTin BenhAnTapTin = DuAnYTeEntitiesFramework.BenhAn_TapTin.FirstOrDefault(tv => tv.id_BenhAn == idBenhAn && tv.id_TapTin == idTapTin && tv.TrangThai == true);
+            Models.BenhAn_TapTin BenhAnTapTin = DbContext.BenhAn_TapTin.FirstOrDefault(tv => tv.id_BenhAn == idBenhAn && tv.id_TapTin == idTapTin && tv.TrangThai == true);
             if (BenhAnTapTin != null)
             {
                 BenhAnTapTin.TrangThai = false;
-                DuAnYTeEntitiesFramework.BenhAn_TapTin.Attach(BenhAnTapTin);
-                DuAnYTeEntitiesFramework.Entry(BenhAnTapTin).Property(e => e.TrangThai).IsModified = true;
+                DbContext.BenhAn_TapTin.Attach(BenhAnTapTin);
+                DbContext.Entry(BenhAnTapTin).Property(e => e.TrangThai).IsModified = true;
 
-                DuAnYTeEntitiesFramework.SaveChanges();
+                DbContext.SaveChanges();
                 return true;
             }
             return false;

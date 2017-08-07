@@ -6,25 +6,26 @@ using System.Threading.Tasks;
 #region Thư viện
 using Service.EntityModel;
 using System.Security.Cryptography;
+using Blog_Guitar.Service;
 #endregion
 namespace Service
 {
-    public class PhongThaoLuan_Service : IService
+    public class PhongThaoLuan_Service : IService<PhongThaoLuan>
     {
         public IList<PhongThaoLuan> GetAll()
         {
-            return DuAnYTeEntitiesFramework.PhongThaoLuans.Where(bs => bs.TrangThai != false).ToList();
+            return DbContext.PhongThaoLuans.Where(bs => bs.TrangThai != false).ToList();
         }
         public PhongThaoLuan GetById(int id)
         {
-            return DuAnYTeEntitiesFramework.PhongThaoLuans.FirstOrDefault(bs => bs.TrangThai != false&&bs.id==id);
+            return DbContext.PhongThaoLuans.FirstOrDefault(bs => bs.TrangThai != false&&bs.id==id);
         }
         public bool DeleteById(int id)
         {
             try
             {
-                DuAnYTeEntitiesFramework.PhongThaoLuans.FirstOrDefault(tt => tt.id == id).TrangThai = false;
-                DuAnYTeEntitiesFramework.SaveChanges();
+                DbContext.PhongThaoLuans.FirstOrDefault(tt => tt.id == id).TrangThai = false;
+                DbContext.SaveChanges();
                 return true;
             }
             catch

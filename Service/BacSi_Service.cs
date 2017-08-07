@@ -6,25 +6,26 @@ using System.Threading.Tasks;
 #region Thư viện
 using Service.EntityModel;
 using System.Security.Cryptography;
+using Blog_Guitar.Service;
 #endregion
 namespace Service
 {
-    public class BacSi_Service : IService
+    public class BacSi_Service : IService<BacSi>
     {
         public IList<BacSi> GetAll()
         {
-            return DuAnYTeEntitiesFramework.BacSis.Where(bs => bs.TrangThai != false).ToList();
+            return DbContext.BacSis.Where(bs => bs.TrangThai != false).ToList();
         }
         public BacSi GetById(int id)
         {
-            return DuAnYTeEntitiesFramework.BacSis.FirstOrDefault(bs => bs.TrangThai != false&&bs.id==id);
+            return DbContext.BacSis.FirstOrDefault(bs => bs.TrangThai != false&&bs.id==id);
         }
         public object DeleteById(int id)
         {
             try
             {
-                DuAnYTeEntitiesFramework.BacSis.FirstOrDefault(bs => bs.id == id).TrangThai = false;
-                DuAnYTeEntitiesFramework.SaveChanges();
+                DbContext.BacSis.FirstOrDefault(bs => bs.id == id).TrangThai = false;
+                DbContext.SaveChanges();
                 return true;
             }
             catch
@@ -39,8 +40,8 @@ namespace Service
             {
                 bacsi.NgayTao = DateTime.Now;
                 bacsi.TrangThai = true;
-                DuAnYTeEntitiesFramework.BacSis.Add(bacsi);
-                DuAnYTeEntitiesFramework.SaveChanges();
+                DbContext.BacSis.Add(bacsi);
+                DbContext.SaveChanges();
                 return bacsi;
             }
             catch(Exception ex)
@@ -58,9 +59,9 @@ namespace Service
                 bacsi_old.id_ThanhVien = bacsi.id_ThanhVien;
                 bacsi_old.id_LoaiBacSi = bacsi.id_LoaiBacSi;
                 bacsi_old.id_BenhVienLamViec = bacsi.id_BenhVienLamViec;
-                DuAnYTeEntitiesFramework.BacSis.Attach(bacsi_old);
-                DuAnYTeEntitiesFramework.Entry(bacsi_old).State = System.Data.Entity.EntityState.Modified;
-                DuAnYTeEntitiesFramework.SaveChanges();
+                DbContext.BacSis.Attach(bacsi_old);
+                DbContext.Entry(bacsi_old).State = System.Data.Entity.EntityState.Modified;
+                DbContext.SaveChanges();
                 return bacsi_old;
             }
             catch (Exception ex)
