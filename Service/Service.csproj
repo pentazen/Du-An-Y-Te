@@ -145,6 +145,7 @@
     <Compile Include="LoaiBacSi_Service.cs" />
     <Compile Include="LoaiThanhVien_Service.cs" />
     <Compile Include="LoaiXetNghiem_Service.cs" />
+    <Compile Include="MauBenhAn_Service.cs" />
     <Compile Include="NhomMau_Service.cs" />
     <Compile Include="NoiDungTinNhanPhongThaoLuan_Service.cs" />
     <Compile Include="PhanHoi_Service.cs" />

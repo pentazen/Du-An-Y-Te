@@ -22,7 +22,7 @@ namespace Du_An_Y_Te.Controllers
             {
                 DuAnYTeEntities entity = new DuAnYTeEntities();
 
-                return View(entity.MauBenhAns.ToList());
+                return View(entity.MauBenhAns.Where(mba=>mba.TrangThai==true).ToList());
 
             }
             return RedirectToAction("Index", "Home");
