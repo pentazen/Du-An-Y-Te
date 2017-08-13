@@ -63,7 +63,13 @@ function TaoMauBenhAn() {
             })
         .done(function (data) {
             console.log(data)
+            console.log(typeof data)
+            if (typeof data == "string") {
+                if (data=="True") {
+                    swal("Success", "Add " + inputValue + " success", "success");
+                }
+            }
         });
-            swal("Nice!", "You wrote: " + inputValue, "success");
+
         });
 }
